@@ -1,0 +1,152 @@
+/*  ---------------------------- pali-sin.css ----------------------------
+    http://meyerweb.com/eric/tools/css/reset/ 
+    v2.0 | 20110126
+    License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+/* ol, ul { */
+/* 	list-style: none; */
+/* } */
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* lipu ni */
+body, html {
+    width: 100%;
+    height: 100%;
+}
+#poki {
+    //display: flex;
+    //flex-direction: column;
+    min-height: 100vh;
+}
+
+em {
+    font-style: italic;
+}
+
+h1 {
+    font-size: xx-large;
+    padding: 15px;
+    margin-left: 50px;
+}
+
+h2 {
+    font-size: x-large;
+}
+
+#subtitle {
+    margin: 0 20px;
+}
+
+#logo {
+    height: 50px;
+    float: left;
+    margin: 5px;
+}
+
+h1 small {
+    font-size: x-large;
+    color: gray;
+}
+
+#subtitle small {
+    font-size: large;
+}
+#subtitle small a {
+    color: gray;
+}
+
+p {
+    margin: 10px 0;
+}
+
+#poki-pi-toki-sina {
+    //flex-grow: 1;
+    overflow: hidden;
+    // height: 80%;
+    padding: 10px;
+    border: 1px solid darkgray;
+    border-radius: 15px;
+    margin: 15px;
+}
+
+ul {
+    padding: 25px;
+}
+
+
+[data-tippy-root] {
+    max-width: min(350px, 90%) !important;
+}
+
+.tippy-box {
+    color: black;
+    font-size: 16px;
+    border: 3px solid black;
+    border-left-width: 10px;
+}
+
+.error-category {
+    color: gray !important;
+}
+
+:root {
+  --warning-h: 50;
+  --suspicious-h: 280;
+  --error-h: 0;
+  --uncommon-h: 200;
+
+  --warning: hsl(var(--warning-h), 100%, 70%);
+  --suspicious: hsl(var(--suspicious-h), 100%, 70%);
+  --error: hsl(var(--error-h), 100%, 70%);
+  --uncommon: hsl(var(--uncommon-h), 100%, 70%);
+
+  --warning-desat: hsl(var(--warning-h), 100%, 97%);
+  --suspicious-desat: hsl(var(--suspicious-h), 100%, 97%);
+  --error-desat: hsl(var(--error-h), 100%, 97%);
+  --uncommon-desat: hsl(var(--uncommon-h), 100%, 97%);
+
+  --warning-desaturated: hsl(
+      var(--foreground-h),
+      calc(var(--foreground-s) / 2%),
+      calc(var(--foreground-l) * 1%)
+  );
+}

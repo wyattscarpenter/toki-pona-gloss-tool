@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>telo misikeke | a toki pona grammar checker</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="TextareaDecorator.css">
+        <style>
+            /* highlight styles */
+            .ldt { color: black; }
+        </style>
+
+        <script src="popper.min.js" type="text/javascript"></script>
+        <script src="tippy.min.js" type="text/javascript"></script>
+
+        <script src="Parser.js" type="text/javascript"></script>
+        <script src="TextareaDecorator.js" type="text/javascript"></script>
+        <script src="rules.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            // get element shortcut
+            function $one(e){ return document.querySelector(e); };
+            function $all(e){ return document.querySelectorAll(e); };
+
+            var rules;
+
+            /* fetch("https://linku.la/jasima/data.json")
+             *     .then((x) => document.body.append(JSON.stringify(x.json()))) */
+
+
+            // wait for the page to finish loading before accessing the DOM
+            window.onload = function() {
+
+                function run() {
+                    var parser = new ParserWithCallbacks(rules);
+                    // Generate CSS
+                    function ruleClassSelector(ruleName) { return '.ldt .' + ruleName }
+
+                    let errorStyles = '';
+                    for(let category in rulesByCategory) {
+
+                        // Tippy boxes
+                        errorStyles += '.tippy-box[data-theme="' + category + '"]' +
+                                       '{' +
+                                       'border-color: var(--' + category + ');' +
+                                       'background-color: var(--' + category + '-desat);' +
+                                       '}';
+                        // Highlighted error in the text
+                        errorStyles += rulesByCategory[category].map(ruleClassSelector).join(', ') +
+                                       '{' +
+                                       'border-bottom: 2px solid var(--' + category + ');' +
+                                       'background-color: var(--' + category + '-desat);' +
+                                       '}';
+                    }
+
+                    let styleElement = document.createElement('style');
+                    styleElement.innerHTML = errorStyles;
+
+                    document.body.appendChild(styleElement);
+
+                    textarea = $one('#txt');
+                    decorator = new TextareaDecorator( textarea, parser );
+
+                    let last_tippy = null;
+
+                    textarea.onclick = function(e) {
+                        let err = document.elementsFromPoint(e.clientX, e.clientY).filter(function(x) {
+                            return x.tagName == 'SPAN' && getCategory(x.classList[0]);
+                        });
+
+                        // Look a bit on the left/right
+                        if(!err.length) {
+                            err = document.elementsFromPoint(e.clientX + 5, e.clientY).filter(function(x) {
+                                return x.tagName == 'SPAN' && getCategory(x.classList[0]);
+                            });
+                        }
+                        if(!err.length) {
+                            err = document.elementsFromPoint(e.clientX - 5, e.clientY).filter(function(x) {
+                                return x.tagName == 'SPAN' && getCategory(x.classList[0]);
+                            });
+                        }
+
+                        if(!err.length) {
+
+                            if(last_tippy) {
+                                last_tippy.destroy();
+                                last_tippy = null;
+                            }
+
+                            return;
+                        }
+
+                        let element = err[0];
+                        let text = element.textContent;
+                        let errorCode = element.classList[0];
+                        let category = getCategory(errorCode);
+
+                        let content = '<div class="error-category">' +
+                                      category[0].toUpperCase() + category.slice(1) +
+                                      '</div>' +
+                                      getMessage(errorCode, text).replace(/\n/g, '<br>');
+
+                        if(!category) return;
+
+                        let instance = tippy(element, {
+                            appendTo: document.body,
+                            allowHTML: true,
+                            content: content,
+                            theme: getCategory(errorCode),
+                            arrow: true,
+                            interactive: true,
+                        });
+                        // - Écrire des tests pour les règles
+                        instance.show();
+
+                        last_tippy = instance;
+                    }
+                    $one('#poki-pi-toki-sina').style.display = 'block';
+                    $one('#loading').style.display = 'none';
+
+                    // Fixes a glitch on mobile
+                    setTimeout((x) => {
+                        decorator.update();
+                    }, 100);
+                }
+
+                function fetch_and_run(urls) {
+                    let url = urls[0];
+                    // Fetch
+                    fetch(url)
+                        .then((x) => x.json())
+                        .then((data) => {
+                            rules = build_rules(parseLipuLinku(data));
+                        })
+                        .then(run)
+                        .catch((err) => {
+                            if(urls.length > 1) {
+                                fetch_and_run(urls.slice(1));
+                            } else if(("" + err).match(/^TypeError/)) {
+                                alert('No wordlist available, sorry!');
+                            } else {
+                                alert("Oops... Looks like we broke something, try again later...");
+                                console.log(err);
+                            }
+                        });
+                }
+                fetch_and_run(["https://linku.la/jasima/data.json", "linku.json"]);
+            };
+        </script>
+    </head>
+    <body id="poki">
+        <img id="logo" src="logo.svg" alt=""><h1>telo misikeke <small>pi toki pona - a toki pona grammar checker</small></h1>
+        <h2 id="subtitle">o alasa e pakala! <small><a href="about.html">[About]</a></small></h2>
+        <h2 id="loading" style="text-align: center; margin: 30px;">Loading...</h2>
+        <div id="poki-pi-toki-sina" style="display: none">
+            <textarea id="txt" class="input" spellcheck="false">jan o, toki! :-)
+
+mi jan Nikola, li kama pana e lukin pi ilo ni tawa sini.
+mi pona, taso, toki mi li ken pi ike.
+pona la, mi li jo e ilo ni a!
+mi pali e ilo mi kepeken jan pona mi. jan pona mi li jan Kijom, li pona kin e ilo mi.
+
+Mi pana e ilo ni tawa sina kepeken linluwi :) kulijo a!
+mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
+ni la, ilo ni li pali e ni: mi sama e jan sona a!
+mi tan e ma Kepeke. jan li tawa e tomo mi la, mi pilin pona.
+
+sina o kepeken e ilo mi! ni li ilo pi nanpa wan :-)
+jan pi nasin nasa pi toki ike li sona ala e ilo mi.
+jan kepeken e ilo mi lon tenpo ale!
+ni li pi pona mute a.
+
+jan o, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
+jan o, mi wile pona e lipu mi en lipu sina ;)
+sina wile kepeken e ilo mi? pona a!
+
+sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. jan ale li li ken toki tawa mi.
+jan li o toki tawa mi a!
+lon la, nimi mi li Nikola. taso, ilo Siko la, mi Tasaseka.</textarea>
+        </div>
+    </body>
+</html>

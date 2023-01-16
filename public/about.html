@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <title>telo misikeke | a toki pona grammar checker | about</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <style>
+            #toki {
+                padding: 30px;
+                font-size: large;
+            }
+	        code {
+                font-family: monospace;
+	        }
+        </style>
+    </head>
+    <body id="poki">
+        <img id="logo" src="logo.svg" alt=""><h1>telo misikeke <small>pi toki pona - a toki pona grammar checker</small></h1>
+        <h2 id="subtitle">o alasa e pakala! <small><a href="index.html">[Back]</a></small></h2>
+        <div id="toki">
+            <p>This tool was developed by jan Nikola, with help from
+                jan Kijon (thanks for the tip of LDT!)</p>
+            <br>
+            <p>Powered by:</p>
+            <ul>
+                <li>A modified version of <a href="https://github.com/kueblc/LDT">LDT</a> for the highlighting</li>
+                <li><a href="https://linku.la/">lipu Linku</a>, for the word usage database</li>
+                <li><a href="https://atomiks.github.io/tippyjs/">Tippy</a> and <a href="https://popper.js.org/">Popper</a> for the tooltips</li>
+                <li><a href="https://game-icons.net/1x1/caro-asercion/round-potion.html">This <em>Round Potion</em> icon</a>, remixed for the <em>toki ponesque</em> logo</li>
+            </ul>
+            <h2>Objective</h2>
+            <p>This tool is not a toki pona parser. Instead, it looks for patterns of common human
+            errors.</p>
+            <p>It was developed during the relecture of <a href="http://jan-lawa-lili.gitlab.io/">jan lawa lili</a>,
+                once I noticed that a few recurring errors followed the
+                same patterns.</p>
+            <br>
+            <h2>Limitations</h2>
+            <p>The biggest limitation is that it cannot parse two
+                overlapping errors.</p>
+	        <p>For instance: <code>jan li li moku mute en moku kin</code> will show the <code>li li</code> error, but not the erroneous <code>en</code> use.</p>
+	        <p>If you correct the first error, <code>jan li moku mute en moku kin</code> will then show the problematic <code>en</code>.</p>
+        </div>
+    </body>
+</html>
