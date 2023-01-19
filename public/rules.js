@@ -126,7 +126,7 @@ function build_rules(wordList) {
                 },
             ],
             'Ill-formed question.\n\nYou should use either the form <em>"[verb] ala [verb]</em>, the form <em>"X, anu seme?"</em> or at least include either of the words <em>anu</em> or <em>seme</em>.',
-            'error'
+            'warning'
         ),
         dontCapitalizeSentences: new Err(
             [
@@ -212,7 +212,7 @@ function build_rules(wordList) {
                     return true;
                 }
             ],
-            'Double check: <em>tawa</em> as an action verbe is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>). Did you mean <em>tawa $4</em>?',
+            'Double check: <em>tawa</em> as an action verbe is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>).\n\nDid you mean <em>tawa $4</em>?',
             'suspicious'
         ),
         suspiciousEn: new Err(
