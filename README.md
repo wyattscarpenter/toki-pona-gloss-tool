@@ -3,7 +3,7 @@ telo misikeke
 
 telo misikeke pi toki pona - a toki pona grammar checker
 
-See the [about page](public/about.html) for more information.
+See the [about page](https://telo-misikeke.gitlab.io/about.html) for more information.
 
 
 ## Licence
