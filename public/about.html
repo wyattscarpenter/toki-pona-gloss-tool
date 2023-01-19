@@ -3,6 +3,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <title>telo misikeke | a toki pona grammar checker | about</title>
+        <link rel="icon" type="image/x-icon" href="favicon.png">
+
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
         <style>
@@ -13,6 +15,9 @@
 	        code {
                 font-family: monospace;
 	        }
+            h2 {
+                margin-top: 25px;
+            }
         </style>
     </head>
     <body id="poki">
@@ -35,12 +40,17 @@
             <p>It was developed during the relecture of <a href="http://jan-lawa-lili.gitlab.io/">jan lawa lili</a>,
                 once I noticed that a few recurring errors followed the
                 same patterns.</p>
-            <br>
             <h2>Limitations</h2>
             <p>The biggest limitation is that it cannot parse two
                 overlapping errors.</p>
 	        <p>For instance: <code>jan li li moku mute en moku kin</code> will show the <code>li li</code> error, but not the erroneous <code>en</code> use.</p>
 	        <p>If you correct the first error, <code>jan li moku mute en moku kin</code> will then show the problematic <code>en</code>.</p>
+            <h2>Contribute</h2>
+            <p>If you have ideas for other common errors I missed or if you encounter any problem, you can either:</p>
+            <ul>
+                <li><a href="https://gitlab.com/telo-misikeke/telo-misikeke.gitlab.io/-/issues">Open an issue on the Gitlab project</a></li>
+                <li>Contact me, at 316k (at) legtux (dot org)</li>
+            </ul>
         </div>
     </body>
 </html>
