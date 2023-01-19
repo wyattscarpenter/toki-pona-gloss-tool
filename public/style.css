@@ -150,3 +150,8 @@ ul {
       calc(var(--foreground-l) * 1%)
   );
 }
+
+.more-infos {
+    display: inline-block;
+    margin-top: 10px;
+}

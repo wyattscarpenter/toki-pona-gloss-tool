@@ -25,7 +25,7 @@ function build_rules(wordList) {
     // \x02 is the ASCII char:       002   2     02    STX (start of text)
     // Full sentence: includes all the `X la, Y la, ... Z`
     // Partial sentence: includes only one la/main-block
-    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,)?|\W{3,})\s*|\bla\b[,\s]*|\bo\b[,\s]*)/.source;
+    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,)?|\W{3,})\s*|,?\bla\b[,\s]*|\bo\b[,\s]*)/.source;
     let FULL_SENTENCE_BEGIN = /(([\x02;.!?“”]|\W{3,})\s*)/.source;
     let PARTICLES = 'en|li|e|la|pi|o|anu';
     let PREPOSITIONS = 'lon|tawa|tan|sama|kepeken';
@@ -52,7 +52,7 @@ function build_rules(wordList) {
                        .replace(/(^la\s+|^taso\s+)/g, '');
     }
 
-    function Err(rule, message, category) {
+    function Err(rule, message, category, more_infos) {
         this.raw_rule = rule;
 
         if(typeof(rule[0]) === "undefined") {
@@ -71,6 +71,7 @@ function build_rules(wordList) {
 
         this.message = message;
         this.category = category;
+        this.more_infos = more_infos;
     }
 
     var rules = {
@@ -78,7 +79,8 @@ function build_rules(wordList) {
         tasoJoinsSentences: new Err(
             /,\s*taso\b/,
             "<em>taso</em> can't join two sentences.",
-            'error'
+            'error',
+            'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_12_Conjunctions,_Temperature'
         ),
         noLiAfterMiSina: new Err(
             [
@@ -86,7 +88,8 @@ function build_rules(wordList) {
                 startOfPartialSentence,
             ],
             '<em>$1</em> used with <em>li</em>.',
-            'error'
+            'error',
+            'https://github.com/kilipan/nasin-toki#the-particle-li'
         ),
         duplicateParticle: new Err(
             new RegExp(
@@ -126,7 +129,8 @@ function build_rules(wordList) {
                 },
             ],
             'Ill-formed question.\n\nYou should use either the form <em>"[verb] ala [verb]</em>, the form <em>"X, anu seme?"</em> or at least include either of the words <em>anu</em> or <em>seme</em>.',
-            'warning'
+            'warning',
+            'https://github.com/kilipan/nasin-toki#questions'
         ),
         dontCapitalizeSentences: new Err(
             [
@@ -162,7 +166,8 @@ function build_rules(wordList) {
         piSuspicious: new Err(
             new RegExp('(\\bpi\\s+[a-zA-Z]+(\\s+(li|e|pi|en|la|anu|o)\\b|(' + PARTIAL_SENTENCE_BEGIN + ')))'),
             'Suspicious usage of <em>pi</em> here, pi should usually be followed by at least two words.',
-            'suspicious'
+            'suspicious',
+            'https://github.com/kilipan/nasin-toki#the-particle-pi-1'
         ),
         liPi: new Err(
             /\bli\s+pi\b/,
@@ -200,7 +205,8 @@ function build_rules(wordList) {
                     return 'Double check: <em>$2</em> as an action verbe (<em>$2 e X</em>) is uncommon.';
                 }
             },
-            'suspicious'
+            'suspicious',
+            'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_6_Prepositions_1_lon,_kepeken,_and_tawa'
         ),
         suspiciousTawa: new Err(
             [
@@ -213,7 +219,8 @@ function build_rules(wordList) {
                 }
             ],
             'Double check: <em>tawa</em> as an action verbe is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>).\n\nDid you mean <em>tawa $4</em>?',
-            'suspicious'
+            'suspicious',
+            'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_6_Prepositions_1_lon,_kepeken,_and_tawa'
         ),
         suspiciousEn: new Err(
             [
@@ -230,12 +237,14 @@ function build_rules(wordList) {
                 }
             ],
             '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em> or multiple <em>e</em> instead.',
-            'suspicious'
+            'suspicious',
+            'https://github.com/kilipan/nasin-toki#the-particle-en'
         ),
         suspiciousKepeken: new Err(
             /\bkepeken\s+(meli|mije|tonsi|jan)\b/,
             "Suspicious use of <em>kepeken</em> here.\n\n<em>kepeken Person</em> means <em>\"using Person\"</em>, not <em>\"with Person\"</em>. If you meant <em>\"with Person\"</em> in the sense of <em>\"alongside Person\"</em>, you can use something such as <em>\"lon poka People\"</em>. You could also rephrase it as <em>\"X en Person li ...\"</em>",
-            'suspicious'
+            'suspicious',
+            'https://www.reddit.com/r/tokipona/comments/zwhun3/comment/j1usd44/'
         ),
         unofficialWordWithoutNoun: new Err(
             [
@@ -262,7 +271,8 @@ function build_rules(wordList) {
                 })()
             ],
             "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word (eg.: <em>\"ona li Sonja\"</em>  would be <em>\"ona li jan Sonja\"</em>).",
-            'suspicious'
+            'suspicious',
+            'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
         ),
         // Things that are accepted but could be better written
         sinaO: new Err(
@@ -272,11 +282,13 @@ function build_rules(wordList) {
             ],
             '<em>sina</em> can be omitted with <em>o</em>.',
             'warning',
+            'https://github.com/kilipan/nasin-toki#the-particle-o'
         ),
         piNanpa: new Err(
             /\bpi\s+nanpa\s+((wan|tu|luka|mute|ale|ali)\s+)*(wan|tu|luka|mute|ale|ali)/,
             '<em>pi</em> can be omitted with <em>nanpa</em> as an ordinal marker.',
-            'warning'
+            'warning',
+            'https://github.com/kilipan/nasin-toki#ordinals'
         ),
         multiplePi: new Err(
             [
@@ -307,18 +319,21 @@ function build_rules(wordList) {
         uncommonWord: new Err(
             new RegExp('\\b(' + uncommonWords.join('|') + ')\\b'),
             'Uncommon word, make sure your target audience knows it.',
-            'uncommon'
+            'uncommon',
+            'https://linku.la/'
         ),
         
         nimiSuliPuAla: new Err(
             /\b([A-Z][a-zA-Z]*)\b/,
             'Proper noun with unauthorized syllables.',
-            'warning'
+            'warning',
+            'https://www.reddit.com/r/tokipona/comments/e09ebn/sona_kalama_pi_toki_pona_table_of_usedpermitted/'
         ),
         nimiPuAla: new Err(
             /\b([a-zA-Z]+)\b/,
             'Unknown word.',
-            'error'
+            'error',
+            'https://linku.la/'
         ),
         startOfText: new Err(
             /\x02/, '', false
@@ -354,8 +369,9 @@ function build_rules(wordList) {
         if(!(key in rules))
             return false;
 
-        let match = rules[key].getMatch(text);
-        let message = rules[key].message;
+        let err = rules[key]
+        let match = err.getMatch(text);
+        let message = err.message;
 
         if(typeof(message) == 'function') {
             message = message(match);
@@ -363,6 +379,10 @@ function build_rules(wordList) {
 
         for(var i=1; i<match.length; i++) {
             message = message.replaceAll('$'+(i-1), match[i]);
+        }
+
+        if(err.more_infos) {
+            message += '<br><a  class="more-infos" target="_blank" href="' + err.more_infos + '">[More infos]</a>';
         }
 
         return message;
