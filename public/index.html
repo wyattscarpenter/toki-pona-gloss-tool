@@ -6,10 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" type="text/css" href="TextareaDecorator.css">
-        <style>
-            /* highlight styles */
-            .ldt { color: black; }
-        </style>
+        <link rel="icon" type="image/x-icon" href="favicon.png">
 
         <script src="popper.min.js" type="text/javascript"></script>
         <script src="tippy.min.js" type="text/javascript"></script>
@@ -24,10 +21,6 @@
             function $all(e){ return document.querySelectorAll(e); };
 
             var rules;
-
-            /* fetch("https://linku.la/jasima/data.json")
-             *     .then((x) => document.body.append(JSON.stringify(x.json()))) */
-
 
             // wait for the page to finish loading before accessing the DOM
             window.onload = function() {
@@ -111,7 +104,6 @@
                             arrow: true,
                             interactive: true,
                         });
-                        // - Écrire des tests pour les règles
                         instance.show();
 
                         last_tippy = instance;
