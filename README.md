@@ -5,7 +5,8 @@ telo misikeke pi toki pona - a toki pona grammar checker
 
 See the [about page](public/about.html) for more information.
 
-# Licence
+
+## Licence
 
 MIT License
 
