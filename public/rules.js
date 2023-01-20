@@ -106,9 +106,9 @@ function build_rules(wordList) {
                 }).join('|')
             ),
             function(m) {
-                if(m[0] == 'mi mi')
+                if(m[0].indexOf('mi') == 0)
                     return "This word probably shouldn't appear twice, unless you really meant <em>\"I am me\"</em> or <em>\"my me\"</em>.";
-                else if(m[0] == 'sina sina')
+                else if(m[0].indexOf('sina') == 0)
                     return "This word probably shouldn't appear twice, unless you really meant <em>\"You are you\"</em> or <em>\"your you\"</em>.";
                 else
                     return "This word probably shouldn't appear twice, unless you really meant <em>\"They are them\"</em> or <em>\"their them\"</em>.";
