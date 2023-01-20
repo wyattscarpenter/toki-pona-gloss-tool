@@ -4,7 +4,7 @@
  * Modified by Nicolas Hurtubise, 2023
  */
 
-function ParserWithCallbacks(rules, i) {
+function ParserWithCallbacks(rules, useLinebreaks) {
     var api = this;
 
     function rule_matches(rule, input, behind) {
@@ -37,7 +37,13 @@ function ParserWithCallbacks(rules, i) {
     api.tokenize = function(allInputs) {
         var tokens = [];
 
-        var chunks = allInputs.split(/\n\n/g);
+        var chunkSeparator = /\n\n/g;
+
+        if(useLinebreaks)
+            chunkSeparator = /\n/g;
+
+        var chunks = allInputs.split(chunkSeparator);
+
         chunks.forEach((input, idx) => {
             var behind = "\x02";
 
@@ -76,7 +82,7 @@ function ParserWithCallbacks(rules, i) {
 
             if(idx != chunks.length - 1) {
                 tokens.push({
-                    text: '\n\n',
+                    text: useLinebreaks ? '\n' : '\n\n',
                     ruleName: 'lineBreak',
                 });
             }

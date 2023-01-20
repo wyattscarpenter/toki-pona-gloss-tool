@@ -9,6 +9,7 @@
 function TextareaDecorator( textarea, parser ){
     /* INIT */
     var api = this;
+    api.parser = parser;
 
     // construct editor DOM
     var parent = document.createElement("div");
@@ -65,7 +66,7 @@ function TextareaDecorator( textarea, parser ){
                     textarea.value +
                     '\n '; /* XXX Ugly hack to fix display glitches */
         if( input ){
-            color( input, output, parser );
+            color( input, output, api.parser );
             // determine the best size for the textarea
             var lines = input.split('\n');
             // find the number of columns

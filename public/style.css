@@ -72,8 +72,12 @@ h2 {
     font-size: x-large;
 }
 
-#subtitle {
+#subtitle, p#options {
     margin: 0 20px;
+}
+
+p#options input {
+    margin: 0;
 }
 
 #logo {

@@ -26,11 +26,14 @@
             window.onload = function() {
 
                 function run() {
+
+                    let useLinebreaks = $one('#useLinebreaks').checked;
+
                     let allRules = Object.keys(rules).filter(function(x) {
                         return rules[x].category;
                     });
 
-                    var parser = new ParserWithCallbacks(rules);
+                    var parser = new ParserWithCallbacks(rules, useLinebreaks);
                     // Generate CSS
                     function ruleClassSelector(ruleName) { return '.ldt .' + ruleName }
 
@@ -208,14 +211,18 @@
     <body id="poki">
         <img id="logo" src="logo.svg" alt=""><h1>telo misikeke <small>pi toki pona - a toki pona grammar checker</small></h1>
         <h2 id="subtitle">o alasa e pakala! <small><a href="about.html">[About]</a></small></h2>
+        <p id="options"><label><input id="useLinebreaks" type="checkbox" onclick="window.location.reload()"> Line breaks form new sentences</label></p>
         <h2 id="loading" style="text-align: center; margin: 30px;">Loading...</h2>
         <div id="poki-pi-toki-sina" style="display: none">
             <textarea id="txt" class="input" spellcheck="false">jan o, toki! :-)
 
-mi jan Nikola, li kama pana e lukin pi ilo ni tawa sini.
+mi jan Nikola, li kama
+pana e lukin pi ilo ni tawa sini.
+
 mi pona, taso, toki mi li ken pi ike.
 pona la, mi li jo e ilo ni a!
-mi pali e ilo mi kepeken jan pona mi. jan pona mi li jan Kijom, li pona kin e ilo mi.
+mi pali e ilo mi kepeken jan pona mi. jan pona
+mi li jan Kijom, li pona kin e ilo mi.
 
 Mi pana e ilo ni tawa sina kepeken linluwi :) kulijo a!
 mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
