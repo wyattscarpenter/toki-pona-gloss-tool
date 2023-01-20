@@ -54,6 +54,8 @@ let tests = {
         'mi moku': 0,
         'mi moku ala moku?': 0,
         'mi moku ala moku pona mute?': 0,
+
+        'o lukin e sewi. o seme e sina: soweli wan li moku ala moku e kasi loje??': 0,
     },
     objectWithoutVerb: {
         'jan moku e pan': 1,
@@ -74,6 +76,9 @@ let tests = {
         'moku e kala li pona': 1,
         'mama e jan lili li pali suli!': 1,
         'moku e soweli li ike tawa mi :(': 1,
+
+        'o awen ala, o pona e mi, o toki e ni tawa mi: jan lawa lili li kama tu…': 0,
+        'o pana e pona tawa mi, o toki lawa e ni tawa suno: o weka!': 0,
     },
     piSuspicious: {
         'jan toki pi pona li musi mute': 1,
@@ -188,9 +193,12 @@ let tests = {
         'o jan! sina pona!': 1,
         'o jan pali Mawijo! sina pona!': 1,
         'o tonsi Po, pona e lipu mi': 1,
+
         'tonsi Po o! pona e lipu mi': 0,
         'tonsi Po o pona e lipu mi': 0,
         'tonsi Po o! o pona e lipu mi': 0,
+
+        'o pana e pona tawa mi, o toki lawa e ni tawa suno: o weka!': 0,
     },
     piNanpa: {
         'mi jan pi nanpa wan': 1,
@@ -238,7 +246,8 @@ for(let ruleName in tests) {
         ['',
          'lon. ', 'ni la, ni li lon. ',
          'mi la, ', 'jan pona mi la ',
-         'tenpo pi mi lili la ', 'taso, ',
+         'tenpo pi mi lili la ',
+         'taso, ', 'taso ',
          'ni li pona: ', 'jan o, '].forEach(function(prefix) {
              ['', '.', '!', '...',
               '; mi moku', '. ni la, mi moku a!',

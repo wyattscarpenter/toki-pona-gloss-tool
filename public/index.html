@@ -26,6 +26,10 @@
             window.onload = function() {
 
                 function run() {
+                    let allRules = Object.keys(rules).filter(function(x) {
+                        return rules[x].category;
+                    });
+
                     var parser = new ParserWithCallbacks(rules);
                     // Generate CSS
                     function ruleClassSelector(ruleName) { return '.ldt .' + ruleName }
@@ -55,6 +59,61 @@
                     textarea = $one('#txt');
                     decorator = new TextareaDecorator( textarea, parser );
 
+
+                    document.body.addEventListener('keyup', function(event) {
+                        if(event.ctrlKey && event.key == ".") {
+                            let currentPos = textarea.selectionStart;
+
+                            let charsSeen = 0;
+                            let tokensSeen = 0;
+
+                            // Find the current token
+                            for(let i=0; i<parser.tokens.length && charsSeen<currentPos+1; i++) {
+                                let token = parser.tokens[i];
+                                charsSeen += token.text.replace(/\x02/g, '').length;
+                                tokensSeen++;
+                            }
+
+                            let nextErrorPos = textarea.value.length;
+
+                            let foundToken = null;
+
+                            // Find the next interesting error
+                            for(let i=tokensSeen; i<parser.tokens.length; i++) {
+                                let token = parser.tokens[i];
+
+                                if(allRules.indexOf(token.ruleName) !== -1) {
+                                    // Found
+                                    nextErrorPos = charsSeen;
+                                    foundToken = true;
+                                    break;
+                                }
+
+                                tokensSeen++;
+                                charsSeen += token.text.replace(/\x02/g, '').length;
+                            }
+
+                            textarea.selectionStart = textarea.selectionEnd = nextErrorPos;
+
+                            // Scroll to the cursor position
+                            // https://stackoverflow.com/a/40951875
+                            textarea.blur();
+                            textarea.focus();
+
+                            hideTooltip();
+
+                            if(foundToken) {
+                                let el = document.querySelector('.ldt > pre > :nth-child(' + (tokensSeen+1) + ')');
+                                showTooltip(el);
+                                el.style.opacity = '0.25';
+                                el.style.transition = 'opacity 0.3s ease';
+                                setTimeout(function() {
+                                    el.style.opacity = '1';
+                                }, 300);
+                            }
+                        }
+                    }, false);
+
                     let last_tippy = null;
 
                     textarea.onclick = function(e) {
@@ -74,17 +133,21 @@
                             });
                         }
 
-                        if(!err.length) {
-
-                            if(last_tippy) {
-                                last_tippy.destroy();
-                                last_tippy = null;
-                            }
-
-                            return;
+                        if(err.length) {
+                            showTooltip(err[0]);
+                        } else {
+                            hideTooltip();
                         }
+                    }
 
-                        let element = err[0];
+                    function hideTooltip() {
+                        if(last_tippy) {
+                            last_tippy.destroy();
+                            last_tippy = null;
+                        }
+                    }
+
+                    function showTooltip(element) {
                         let text = element.textContent;
                         let errorCode = element.classList[0];
                         let category = getCategory(errorCode);
@@ -108,6 +171,7 @@
 
                         last_tippy = instance;
                     }
+
                     $one('#poki-pi-toki-sina').style.display = 'block';
                     $one('#loading').style.display = 'none';
 

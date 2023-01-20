@@ -25,8 +25,8 @@ function build_rules(wordList) {
     // \x02 is the ASCII char:       002   2     02    STX (start of text)
     // Full sentence: includes all the `X la, Y la, ... Z`
     // Partial sentence: includes only one la/main-block
-    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,)?|\W{3,})\s*|,?\bla\b[,\s]*|\bo\b[,\s]*)/.source;
-    let FULL_SENTENCE_BEGIN = /(([\x02;.!?“”]|\W{3,})\s*)/.source;
+    let FULL_SENTENCE_BEGIN = /(([\x02;.…!?“”]|\W{3,})\s*)/.source;
+    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,?)?|\W{3,})\s*|,?\bla\b[,\s]*|\bo,\s)/.source;
     let PARTICLES = 'en|li|e|la|pi|o|anu';
     let PREPOSITIONS = 'lon|tawa|tan|sama|kepeken';
     let PROPER_NOUNS = "((Jan|Jen|Jon|Jun|Kan|Ken|Kin|Kon|Kun|Lan|Len|Lin|Lon|Lun|Man|Men|Min|Mon|Mun|Nan|Nen|Nin|Non|Nun|Pan|Pen|Pin|Pon|Pun|San|Sen|Sin|Son|Sun|Tan|Ten|Ton|Tun|Wan|Wen|Win|An|En|In|On|Un|Ja|Je|Jo|Ju|Ka|Ke|Ki|Ko|Ku|La|Le|Li|Lo|Lu|Ma|Me|Mi|Mo|Mu|Na|Ne|Ni|No|Nu|Pa|Pe|Pi|Po|Pu|Sa|Se|Si|So|Su|Ta|Te|To|Tu|Wa|We|Wi|A|E|I|O|U)(jan|jen|jon|jun|kan|ken|kin|kon|kun|lan|len|lin|lon|lun|man|men|min|mon|mun|nan|nen|nin|non|nun|pan|pen|pin|pon|pun|san|sen|sin|son|sun|tan|ten|ton|tun|wan|wen|win|ja|je|jo|ju|ka|ke|ki|ko|ku|la|le|li|lo|lu|ma|me|mi|mo|mu|na|ne|ni|no|nu|pa|pe|pi|po|pu|sa|se|si|so|su|ta|te|to|tu|wa|we|wi)*)";
@@ -117,8 +117,12 @@ function build_rules(wordList) {
         ),
         illFormedQuestion: new Err(
             [
-                /[^;.!“”]+?\?/,
+                /[^;.!“”]+?\?[\!\?]*/,
                 function(m, behind) {
+
+                    // Avoid matching "????" as an ill-formed question
+                    if(!m[0].match(/[a-z-A-Z]/)) return false;
+
                     if(!startOfFullSentence(m, behind)) return false;
 
                     // No question word found
@@ -153,10 +157,11 @@ function build_rules(wordList) {
 
                     return (!cleanSentence.match(/^mi\s/i) || cleanSentence.match(/^mi\s+e\b/i)) &&
                            (!cleanSentence.match(/^sina\s/i) || cleanSentence.match(/^sina\s+e\b/i)) &&
+                           !cleanSentence.match(/^o.+o$/) &&
                            cleanSentence.match(/\be\b/);
                 },
             ],
-            "<em>e</em> is a particle that introduces  the direct object of a verb. You can't use it inside a subject.\n\n" +
+            "<em>e</em> is a particle that introduces the direct object of a verb. You can't use it inside a subject.\n\n" +
             "Sometimes, removing the <em>e</em> is sufficient. e.g. <em>moku e kala li pona</em> (ill-formed <em>eating a fish is good</em>) can be expressed as <em>moku kala li pona</em> (<em>fish-eating is good</em>).",
             'error',
             'https://www.youtube.com/watch?v=ywRsfMZjp8Q&t=1701s'
@@ -293,7 +298,7 @@ function build_rules(wordList) {
         ),
         sinaO: new Err(
             [
-                /sina\s+o\b/,
+                /sina\s+o\b[^,]/,
                 startOfPartialSentence
             ],
             '<em>sina</em> can be omitted with <em>o</em>.',
@@ -406,7 +411,7 @@ function build_rules(wordList) {
         }
 
         if(err.more_infos) {
-            message += '<br><a  class="more-infos" target="_blank" href="' + err.more_infos + '">[Lear more]</a>';
+            message += '<br><a  class="more-infos" target="_blank" href="' + err.more_infos + '">[Learn more]</a>';
         }
 
         return message;

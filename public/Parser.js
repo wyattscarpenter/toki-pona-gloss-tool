@@ -32,6 +32,8 @@ function ParserWithCallbacks(rules, i) {
         return does_match ? match : false;
     }
 
+    this.tokens = [];
+
     api.tokenize = function(allInputs) {
         var tokens = [];
 
@@ -79,6 +81,8 @@ function ParserWithCallbacks(rules, i) {
                 });
             }
         });
+
+        this.tokens = tokens;
 
         return tokens;
     };
