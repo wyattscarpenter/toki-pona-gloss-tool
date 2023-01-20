@@ -75,11 +75,10 @@ function build_rules(wordList) {
     }
 
     var rules = {
-        // Non pu grammar
         tasoJoinsSentences: new Err(
             /,\s*taso\b/,
-            "<em>taso</em> can't join two sentences.",
-            'error',
+            "<em>taso</em> usually isn't used to join two sentences. Consider breaking your sentence into two instead.",
+            'warning',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_12_Conjunctions,_Temperature'
         ),
         noLiAfterMiSina: new Err(
@@ -144,6 +143,24 @@ function build_rules(wordList) {
             'Sentences should not start with a capital letter.',
             'error'
         ),
+        putingEAfterWordDoesntGerundizeIt: new Err(
+            [
+                new RegExp(
+                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.!?;:]+?)/.source + '\\b(li|o)\\b' + ')'
+                ),
+                function(m, behind) {
+                    let cleanSentence = normalizePartialSentence(m[0]);
+
+                    return (!cleanSentence.match(/^mi\s/i) || cleanSentence.match(/^mi\s+e\b/i)) &&
+                           (!cleanSentence.match(/^sina\s/i) || cleanSentence.match(/^sina\s+e\b/i)) &&
+                           cleanSentence.match(/\be\b/);
+                },
+            ],
+            "<em>e</em> is a particle that introduces  the direct object of a verb. You can't use it inside a subject.\n\n" +
+            "Sometimes, removing the <em>e</em> is sufficient. e.g. <em>moku e kala li pona</em> (ill-formed <em>eating a fish is good</em>) can be expressed as <em>moku kala li pona</em> (<em>fish-eating is good</em>).",
+            'error',
+            'https://www.youtube.com/watch?v=ywRsfMZjp8Q&t=1701s'
+        ),
         objectWithoutVerb: new Err(
             [
                 new RegExp(
@@ -159,10 +176,8 @@ function build_rules(wordList) {
                 },
             ],
             "Object without a verb. Did you forget a <em>li</em> somewhere?",
-            'error'
+            'error',
         ),
-
-        // Weird/suspicious constructs that might be valid in rare cases
         piSuspicious: new Err(
             new RegExp('(\\bpi\\s+[a-zA-Z]+(\\s+(li|e|pi|en|la|anu|o)\\b|(' + PARTIAL_SENTENCE_BEGIN + ')))'),
             'Suspicious usage of <em>pi</em> here, pi should usually be followed by at least two words.',
@@ -179,7 +194,7 @@ function build_rules(wordList) {
                 new RegExp('\\b(' + PARTICLES + ')\\s+(' + PARTICLES + ')\\b'),
                 function(m, behind) {
                     return !(m[2] == 'la' && m[3] == 'o') &&
-		                   !(m[2] == 'anu' && ['li', 'e', 'o'].indexOf(m[3]) != -1);
+                           !(m[2] == 'anu' && ['li', 'e', 'o'].indexOf(m[3]) != -1);
                 }
             ],
             "Those two particles should not follow each other.",
@@ -242,27 +257,29 @@ function build_rules(wordList) {
         ),
         suspiciousKepeken: new Err(
             /\bkepeken\s+(meli|mije|tonsi|jan)\b/,
-            "Suspicious use of <em>kepeken</em> here.\n\n<em>kepeken Person</em> means <em>\"using Person\"</em>, not <em>\"with Person\"</em>. If you meant <em>\"with Person\"</em> in the sense of <em>\"alongside Person\"</em>, you can use something such as <em>\"lon poka People\"</em>. You could also rephrase it as <em>\"X en Person li ...\"</em>",
+            "Suspicious use of <em>kepeken</em> here.\n\n<em>kepeken Person</em> means <em>\"using Person\"</em>, not <em>\"with Person\"</em>. If you meant <em>\"with Person\"</em> in the sense of <em>\"alongside Person\"</em>, you can use something such as <em>\"lon poka Person\"</em>. You could also rephrase it as <em>\"X en Person li ...\"</em>",
             'suspicious',
             'https://www.reddit.com/r/tokipona/comments/zwhun3/comment/j1usd44/'
         ),
         unofficialWordWithoutNoun: new Err(
             [
-                new RegExp(PARTIAL_SENTENCE_BEGIN + '([^:;.!?,]+(\\b(' + PARTICLES + '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?(' + PROPER_NOUNS + '[a-z]*)'),
+                new RegExp('(' + PARTIAL_SENTENCE_BEGIN + '([^:;.!?,]+(\\b(' + PARTICLES + '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?)(' + PROPER_NOUNS + '[a-z]*)'),
                 (function() {
                     let matchesKnownWord = new RegExp('^\\b(' + allWords.join('|') + ')\\b$');
                     return function(m, behind) {
                         let cleanSentence = normalizePartialSentence(m[0]);
 
-                        // XXX: Avoid matching uselessly capitalized toki pona words
-                        if(startOfFullSentence(m, behind)) {
+                        // Avoid matching uselessly capitalized toki pona words at the
+                        // start of a sentence, another category of error matches
+                        // that case
+                        if(startOfFullSentence("foo", behind + m[2])) {
                             let matchedNoun = m[m.length - 3].toLowerCase();
 
                             if(matchedNoun.match(matchesKnownWord)) {
                                 return false;
                             }
                         }
-                        
+
                         // `li ... la ... en` might be correct
                         return !cleanSentence.match(/\bla\b/) &&
                                // One common exception to the "noun Foreign" rule : "nimi [...] li Xyz"
@@ -270,11 +287,10 @@ function build_rules(wordList) {
                     };
                 })()
             ],
-            "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word (eg.: <em>\"ona li Sonja\"</em>  would be <em>\"ona li jan Sonja\"</em>).",
+            "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word (e.g. <em>\"ona li Sonja\"</em>  would be <em>\"ona li jan Sonja\"</em>).",
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
         ),
-        // Things that are accepted but could be better written
         sinaO: new Err(
             [
                 /sina\s+o\b/,
@@ -284,6 +300,14 @@ function build_rules(wordList) {
             'warning',
             'https://github.com/kilipan/nasin-toki#the-particle-o'
         ),
+        oBeforeAdress: new Err(
+            /\bo\s+(meli|mije|tonsi|jan)\b/,
+            "<em>o Person</em> is a command/wish to <em>personify</em> something. " +
+            "If you meant to address someone, the <em>o</em> particle goes after.\n\n" +
+            "e.g. <em>o jan Lakuse!</em> should be <em>jan Lakuse o!</em>",
+            'suspicious',
+            'https://www.youtube.com/watch?v=ywRsfMZjp8Q&t=1627s',
+        ),
         piNanpa: new Err(
             /\bpi\s+nanpa\s+((wan|tu|luka|mute|ale|ali)\s+)*(wan|tu|luka|mute|ale|ali)/,
             '<em>pi</em> can be omitted with <em>nanpa</em> as an ordinal marker.',
@@ -292,7 +316,7 @@ function build_rules(wordList) {
         ),
         multiplePi: new Err(
             [
-                /\bpi\s+([^:;.!?,]+)\s+pi\b/,
+                /\bpi\s+([^:;.!?,]+?)\s+pi\b/,
                 (function() {
                     let regex = new RegExp('\\b(' + PARTICLES + '|' + PREPOSITIONS + ')\\b');
                     return function(m) {
@@ -322,7 +346,7 @@ function build_rules(wordList) {
             'uncommon',
             'https://linku.la/'
         ),
-        
+
         nimiSuliPuAla: new Err(
             /\b([A-Z][a-zA-Z]*)\b/,
             'Proper noun with unauthorized syllables.',
@@ -382,7 +406,7 @@ function build_rules(wordList) {
         }
 
         if(err.more_infos) {
-            message += '<br><a  class="more-infos" target="_blank" href="' + err.more_infos + '">[More infos]</a>';
+            message += '<br><a  class="more-infos" target="_blank" href="' + err.more_infos + '">[Lear more]</a>';
         }
 
         return message;

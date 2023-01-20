@@ -19,7 +19,7 @@ let tok = parser.tokenize('mi moku.');
 let tests = {
     tasoJoinsSentences: {
         'mi pona, taso, toki mi li ken pi ike': 1,
-        'mi wile ala e ni, taso, ni li pona': 1,
+        'mi wile ala e ni. taso, ni li pona': 0,
         'sina pona, taso, o moku ala e ni': 1,
         'mi moku taso la, jan o moku la, jan li moku mute': 0,
         'mi jan pona, taso, mi wile ala e ni: mi taso la, mi taso mute': 1,
@@ -68,6 +68,12 @@ let tests = {
         'jan e pan': 1,
 
         'tenpo ni la, mi wile pona e tomo tawa kon la, mi sitelen ike e ni': 0,
+
+    },
+    putingEAfterWordDoesntGerundizeIt: {
+        'moku e kala li pona': 1,
+        'mama e jan lili li pali suli!': 1,
+        'moku e soweli li ike tawa mi :(': 1,
     },
     piSuspicious: {
         'jan toki pi pona li musi mute': 1,
@@ -168,11 +174,23 @@ let tests = {
         'jan o kepeken ilo Siko': 0,
 
         'nimi pona mi li Nikola': 0,
+
+        'mi Wawa': 1,
+        'mi jan Wawa': 0,
     },
     sinaO: {
         'sina o moku pona': 1,
         'jan sina o moku pona': 0,
         'mi o moku pona': 0,
+    },
+    oBeforeAdress: {
+        'o jan Lakuse!': 1,
+        'o jan! sina pona!': 1,
+        'o jan pali Mawijo! sina pona!': 1,
+        'o tonsi Po, pona e lipu mi': 1,
+        'tonsi Po o! pona e lipu mi': 0,
+        'tonsi Po o pona e lipu mi': 0,
+        'tonsi Po o! o pona e lipu mi': 0,
     },
     piNanpa: {
         'mi jan pi nanpa wan': 1,
@@ -279,12 +297,12 @@ jan pi nasin nasa pi toki ike li sona ala e ilo mi.
 jan kepeken e ilo mi lon tenpo ale!
 ni li pi pona mute a.
 
-jan o, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
-jan o, mi wile pona e lipu mi en lipu sina ;)
+o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
+mi wile pona e lipu mi en lipu sina ;)
 sina wile kepeken e ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. jan ale li li ken toki tawa mi.
-jan li o toki tawa mi a!
+jan li o toki tawa mi a! toki e mi li pona tawa mi.
 lon la, nimi mi li Nikola. taso, ilo Siko la, mi Tasaseka.
 
 poki  loje  lon  sinpin  li  poki tawa`;
@@ -298,7 +316,7 @@ tokens.map((x) => x.ruleName).forEach((x) => {
 
 Object.keys(tests).forEach((ruleName) => {
     if(!(ruleName in names)) {
-        console.log(ruleName, 'not tested');
+        console.log(ruleName, 'not found in the sample text');
         nanpaPalaka++;
     }
 });
