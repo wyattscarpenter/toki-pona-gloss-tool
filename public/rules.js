@@ -423,12 +423,11 @@ function build_rules(wordList) {
         return rules[key].category;
     };
 
-    getMessage = function(key, text) {
+    getMessage = function(key, match) {
         if(!(key in rules))
             return false;
 
         let err = rules[key]
-        let match = err.getMatch(text);
         let message = err.message;
 
         if(typeof(message) == 'function') {

@@ -62,9 +62,8 @@ function TextareaDecorator( textarea, parser ){
     api.input = textarea;
     api.output = output;
     api.update = function() {
-        var input = '' + //'\x02' + /* XXX Ugly hack to correctly match the first SENTENCE_BEGIN */
-                    textarea.value +
-                    '\n '; /* XXX Ugly hack to fix display glitches */
+        var input = textarea.value +
+                    '\n\xa0'; /* XXX NBSP, ugly hack to fix display glitches */
         if( input ){
             color( input, output, api.parser );
             // determine the best size for the textarea

@@ -73,7 +73,7 @@
                             // Find the current token
                             for(let i=0; i<parser.tokens.length && charsSeen<currentPos+1; i++) {
                                 let token = parser.tokens[i];
-                                charsSeen += token.text.replace(/\x02/g, '').length;
+                                charsSeen += token.text.length;
                                 tokensSeen++;
                             }
 
@@ -93,7 +93,7 @@
                                 }
 
                                 tokensSeen++;
-                                charsSeen += token.text.replace(/\x02/g, '').length;
+                                charsSeen += token.text.length;
                             }
 
 
@@ -102,7 +102,7 @@
                             for(let i=tokensSeen; i<parser.tokens.length; i++) {
                                 let token = parser.tokens[i];
 
-                                charsSeen += token.text.replace(/\x02/g, '').length;
+                                charsSeen += token.text.length;
 
                                 newlinesAfterToken += token.text.indexOf('\n') != -1;
 
@@ -185,10 +185,13 @@
                         let errorCode = element.classList[0];
                         let category = getCategory(errorCode);
 
+                        // Get match
+                        let index = Array.prototype.indexOf.call(element.parentNode.children, element);
+                        let match = parser.tokens[index].match;
                         let content = '<div class="error-category">' +
                                       category[0].toUpperCase() + category.slice(1) +
                                       '</div>' +
-                                      getMessage(errorCode, text).replace(/\n/g, '<br>');
+                                      getMessage(errorCode, match).replace(/\n/g, '<br>');
 
                         if(!category) return;
 
