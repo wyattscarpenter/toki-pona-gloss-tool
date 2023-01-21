@@ -27,6 +27,8 @@
 
                 function run() {
 
+                    reloadOptions();
+
                     let useLinebreaks = $one('#useLinebreaks').checked;
 
                     let allRules = Object.keys(rules).filter(function(x) {
@@ -239,12 +241,43 @@
                 }
                 fetch_and_run(["https://linku.la/jasima/data.json", "linku.json"]);
             };
+
+            function reloadWithOptions() {
+                saveOptions();
+                window.location.reload();
+            }
+
+            let optionInputsIds = ['useLinebreaks', 'txt'];
+            function saveOptions() {
+                optionInputsIds.forEach((id) => {
+                    let el = $one('#' + id);
+                    let value = el.type == 'checkbox' ? el.checked : el.value;
+
+                    localStorage.setItem('option.' + id,  JSON.stringify(value));
+                });
+            }
+            function reloadOptions() {
+                optionInputsIds.forEach((id) => {
+                    let el = $one('#' + id);
+                    let value = JSON.parse(localStorage.getItem('option.' + id));
+
+                    if(value === null) return;
+
+                    if(el.type == 'checkbox') {
+                        el.checked = value;
+                    } else {
+                        el.value = value;
+                    }
+
+                    localStorage.removeItem('option.' + id);
+                });
+            }
         </script>
     </head>
     <body id="poki">
         <img id="logo" src="logo.svg" alt=""><h1>telo misikeke <small>pi toki pona - a toki pona grammar checker</small></h1>
         <h2 id="subtitle">o alasa e pakala! <small><a href="about.html">[About]</a></small></h2>
-        <p id="options"><label><input id="useLinebreaks" type="checkbox" onclick="window.location.reload()"> Line breaks form new sentences</label></p>
+        <p id="options"><label><input id="useLinebreaks" type="checkbox" onclick="reloadWithOptions()"> Line breaks form new sentences</label></p>
         <h2 id="loading" style="text-align: center; margin: 30px;">Loading...</h2>
         <div id="poki-pi-toki-sina" style="display: none">
             <textarea id="txt" class="input" spellcheck="false">jan o, toki! :-)
