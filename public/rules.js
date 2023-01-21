@@ -26,7 +26,7 @@ function build_rules(wordList) {
     // Full sentence: includes all the `X la, Y la, ... Z`
     // Partial sentence: includes only one la/main-block
     let FULL_SENTENCE_BEGIN = /(([\x02;.…!?“”]|\W{3,})\s*)/.source;
-    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,?)?|\W{3,})\s*|,?\bla\b[,\s]*|\bo,\s)/.source;
+    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,?|a\b,?)?|\W{3,})\s*|,?\bla\b[,\s]*|\bo,\s)/.source;
     let PARTICLES = 'en|li|e|la|pi|o|anu';
     let PREPOSITIONS = 'lon|tawa|tan|sama|kepeken';
     let PROPER_NOUNS = "((Jan|Jen|Jon|Jun|Kan|Ken|Kin|Kon|Kun|Lan|Len|Lin|Lon|Lun|Man|Men|Min|Mon|Mun|Nan|Nen|Nin|Non|Nun|Pan|Pen|Pin|Pon|Pun|San|Sen|Sin|Son|Sun|Tan|Ten|Ton|Tun|Wan|Wen|Win|An|En|In|On|Un|Ja|Je|Jo|Ju|Ka|Ke|Ki|Ko|Ku|La|Le|Li|Lo|Lu|Ma|Me|Mi|Mo|Mu|Na|Ne|Ni|No|Nu|Pa|Pe|Pi|Po|Pu|Sa|Se|Si|So|Su|Ta|Te|To|Tu|Wa|We|Wi|A|E|I|O|U)(jan|jen|jon|jun|kan|ken|kin|kon|kun|lan|len|lin|lon|lun|man|men|min|mon|mun|nan|nen|nin|non|nun|pan|pen|pin|pon|pun|san|sen|sin|son|sun|tan|ten|ton|tun|wan|wen|win|ja|je|jo|ju|ka|ke|ki|ko|ku|la|le|li|lo|lu|ma|me|mi|mo|mu|na|ne|ni|no|nu|pa|pe|pi|po|pu|sa|se|si|so|su|ta|te|to|tu|wa|we|wi)*)";
@@ -49,7 +49,9 @@ function build_rules(wordList) {
                        .replace(/[^\w ]/g, ' ')
                        .replace(/\s+/g, ' ')
                        .trim()
-                       .replace(/(^la\s+|^taso\s+)/g, '');
+                       .replace(/^(la|taso|a)\s+/g, '') // Required multiple times to strip multiple particles
+                       .replace(/^(la|taso|a)\s+/g, '')
+                       .replace(/^(la|taso|a)\s+/g, '');
     }
 
     function Err(rule, message, category, more_infos) {
@@ -155,14 +157,15 @@ function build_rules(wordList) {
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
 
-                    return (!cleanSentence.match(/^mi\s/i) || cleanSentence.match(/^mi\s+e\b/i)) &&
+                    return !cleanSentence.match(new RegExp(PARTIAL_SENTENCE_BEGIN)) &&
+                           (!cleanSentence.match(/^mi\s/i) || cleanSentence.match(/^mi\s+e\b/i)) &&
                            (!cleanSentence.match(/^sina\s/i) || cleanSentence.match(/^sina\s+e\b/i)) &&
                            !cleanSentence.match(/^o.+o$/) &&
                            cleanSentence.match(/\be\b/);
                 },
             ],
             "<em>e</em> is a particle that introduces the direct object of a verb. You can't use it inside a subject.\n\n" +
-            "Sometimes, removing the <em>e</em> is sufficient. e.g. <em>moku e kala li pona</em> (ill-formed <em>eating a fish is good</em>) can be expressed as <em>moku kala li pona</em> (<em>fish-eating is good</em>).",
+            "Sometimes, removing the <em>e</em> is sufficient. e.g. <em>\"moku e kala li pona\"</em> (ill-formed <em>\"eating a fish is good\"</em>) can be expressed as <em>\"moku kala li pona\"</em> (<em>\"fish-eating is good\"</em>).",
             'error',
             'https://www.youtube.com/watch?v=ywRsfMZjp8Q&t=1701s'
         ),
@@ -182,6 +185,23 @@ function build_rules(wordList) {
             ],
             "Object without a verb. Did you forget a <em>li</em> somewhere?",
             'error',
+        ),
+        objectWithoutVerbMiSinaEn: new Err(
+            [
+                new RegExp(
+                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.!?;:]+?)/.source + '(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
+                ),
+                function(m, behind) {
+                    let cleanSentence = normalizePartialSentence(m[0]);
+
+                    return cleanSentence.match(/^(mi|sina)\s[\s\S]*en[\s\S]+\be\b/i) &&
+                           !cleanSentence.match(/\b(li|o)\b/);
+                },
+            ],
+            "A <em>li</em> is required unless the subject is exactly and only <em>mi</em> or exactly and only <em>sina</em>.\n\n" +
+            'e.g. <em>"mi en sina li moku"</em> is prefered over <em>"mi en sina moku"</em>',
+            'warning',
+            'https://github.com/kilipan/nasin-toki#the-particle-li'
         ),
         piSuspicious: new Err(
             new RegExp('(\\bpi\\s+[a-zA-Z]+(\\s+(li|e|pi|en|la|anu|o)\\b|(' + PARTIAL_SENTENCE_BEGIN + ')))'),
@@ -238,25 +258,31 @@ function build_rules(wordList) {
                     return true;
                 }
             ],
-            'Double check: <em>tawa</em> as an action verbe is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>).\n\nDid you mean <em>tawa $4</em>?',
+            'Double check: <em>tawa</em> as an action verbe is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>) with this object.\n\nDid you mean <em>tawa $4</em>?',
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_6_Prepositions_1_lon,_kepeken,_and_tawa'
         ),
         suspiciousEn: new Err(
             [
-                /(\b(li|o)\b|((mi|sina)))\s+[^:;.!?,]+\s+\ben\b/,
+                new RegExp(/(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?' + PARTIAL_SENTENCE_BEGIN),
                 function(m, behind) {
 
-                    if(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind))
-                        return false;
-
                     let cleanSentence = normalizePartialSentence(m[0]);
+                    if(cleanSentence.match(/\bla\b/)) return false;
+                    /* 
+                     *                     console.log('=============');
+                     *                     console.log('Z', m[0]);
+                     *                     console.log('X', behind);
+                     * 
+                     *                     if(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind))
+                     *                         return false; */
+
                     // `li ... la ... en` might be correct
                     // TODO: li x pi y en z might be accepted by some people
                     return !cleanSentence.match(/\bla\b/);
                 }
             ],
-            '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em> or multiple <em>e</em> instead.',
+            '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em>, multiple <em>e</em> or multiple prepositions instead.',
             'suspicious',
             'https://github.com/kilipan/nasin-toki#the-particle-en'
         ),
@@ -278,7 +304,7 @@ function build_rules(wordList) {
                         // start of a sentence, another category of error matches
                         // that case
                         if(startOfFullSentence("foo", behind + m[2])) {
-                            let matchedNoun = m[m.length - 3].toLowerCase();
+                            let matchedNoun = m[m.length - 4].toLowerCase();
 
                             if(matchedNoun.match(matchesKnownWord)) {
                                 return false;
@@ -292,14 +318,17 @@ function build_rules(wordList) {
                     };
                 })()
             ],
-            "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word (e.g. <em>\"ona li Sonja\"</em>  would be <em>\"ona li jan Sonja\"</em>).",
+            "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word\n\n" +
+            "e.g. <em>\"ona li Sonja\"</em> should instead be <em>\"ona li jan Sonja\"</em>.",
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
         ),
         sinaO: new Err(
             [
                 /sina\s+o\b[^,]/,
-                startOfPartialSentence
+                function(m, behind) {
+                    return startOfPartialSentence(m, behind) && !m[0].match(endsWithFullSentenceBegin);
+                }
             ],
             '<em>sina</em> can be omitted with <em>o</em>.',
             'warning',
@@ -309,7 +338,7 @@ function build_rules(wordList) {
             /\bo\s+(meli|mije|tonsi|jan)\b/,
             "<em>o Person</em> is a command/wish to <em>personify</em> something. " +
             "If you meant to address someone, the <em>o</em> particle goes after.\n\n" +
-            "e.g. <em>o jan Lakuse!</em> should be <em>jan Lakuse o!</em>",
+            'e.g. <em>"o jan Lakuse!"</em> should be <em>"jan Lakuse o!"</em>',
             'suspicious',
             'https://www.youtube.com/watch?v=ywRsfMZjp8Q&t=1627s',
         ),

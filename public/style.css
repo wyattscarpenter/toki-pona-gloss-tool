@@ -76,6 +76,10 @@ h2 {
     margin: 0 20px;
 }
 
+p#options {
+    margin-top: 10px;
+}
+
 p#options input {
     margin: 0;
 }

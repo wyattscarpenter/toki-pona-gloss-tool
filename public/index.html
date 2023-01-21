@@ -96,12 +96,42 @@
                                 charsSeen += token.text.replace(/\x02/g, '').length;
                             }
 
-                            textarea.selectionStart = textarea.selectionEnd = nextErrorPos;
+
+                            // Place the cursor a few lines after the next error
+                            let newlinesAfterToken = 0;
+                            for(let i=tokensSeen; i<parser.tokens.length; i++) {
+                                let token = parser.tokens[i];
+
+                                charsSeen += token.text.replace(/\x02/g, '').length;
+
+                                newlinesAfterToken += token.text.indexOf('\n') != -1;
+
+                                if(newlinesAfterToken > 3) {
+                                    break;
+                                }
+                            }
+
+                            let aFewLinesBelow = charsSeen;
+
+                            textarea.selectionStart = textarea.selectionEnd = aFewLinesBelow;
 
                             // Scroll to the cursor position
                             // https://stackoverflow.com/a/40951875
                             textarea.blur();
                             textarea.focus();
+
+                            // Place back the cursor at the next error
+                            //
+                            // The setTimeout is there to allow the
+                            // browser to set the cursor a few lines
+                            // below first, so that the final scroll
+                            // position is not at the end of the page
+                            setTimeout(() => {
+                                textarea.selectionStart = textarea.selectionEnd = nextErrorPos;
+
+                                textarea.blur();
+                                textarea.focus();
+                            }, 0);
 
                             hideTooltip();
 
@@ -235,7 +265,7 @@ jan kepeken e ilo mi lon tenpo ale!
 ni li pi pona mute a.
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
-mi wile pona e lipu mi en lipu sina ;)
+mi en sina ken kepeken e ilo mi. mi wile pona e lipu mi en lipu sina ;)
 sina wile kepeken e ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. jan ale li li ken toki tawa mi.

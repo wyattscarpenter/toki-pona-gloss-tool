@@ -70,6 +70,20 @@ let tests = {
         'jan e pan': 1,
 
         'tenpo ni la, mi wile pona e tomo tawa kon la, mi sitelen ike e ni': 0,
+        'mi wile ala e ijo la taso mi jo e ijo': 0,
+    },
+    objectWithoutVerbMiSinaEn: {
+        "sina en mi kama moku e pan": 1,
+        "mi en mi kama moku e pan": 1,
+        "mi en jan kama moku e pan": 1,
+        "mi mute en sina kama moku e pan": 1,
+        "sina en jan kama moku e pan": 1,
+
+        'mi la mi mute en jan ante li moku ala e ni': 0,
+        'mi la mi mute en jan ante li moku ala e ni la, mi pona a': 0,
+        'mi en sina en jan ante li pali e ni: ijo pona a': 0,
+        'jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
+        'mi en jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
 
     },
     putingEAfterWordDoesntGerundizeIt: {
@@ -78,7 +92,11 @@ let tests = {
         'moku e soweli li ike tawa mi :(': 1,
 
         'o awen ala, o pona e mi, o toki e ni tawa mi: jan lawa lili li kama tu…': 0,
-        'o pana e pona tawa mi, o toki lawa e ni tawa suno: o weka!': 0,
+        'o pana e pona tawa mi, o toki lawa e ni tawa suno: o weka': 0,
+
+        'tenpo sama la sina ken ala jo e pan suwi li ken ala moku kin e ona': 0,
+
+        'a, mi sona e ijo sin': 0,
     },
     piSuspicious: {
         'jan toki pi pona li musi mute': 1,
@@ -132,8 +150,16 @@ let tests = {
         'mi en jan pona mi li moku': 0,
 
         'jan pona li moku en musi': 1,
-        'o moku en musi': 1,
+        'jan mi li moku en musi': 1,
+        'sina en mi li moku en musi': 1,
+        'o moku mi en musi': 1,
         'jan li moku e pan en sike mama': 1,
+
+        'mi la mi mute en jan ante li moku ala e ni': 0,
+        'mi la mi mute en jan ante li moku ala e ni la, mi pona a': 0,
+        'mi en sina en jan ante li pali e ni: ijo pona a': 0,
+        'jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
+        'mi en jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
     },
     suspiciousKepeken: {
         'tenpo pi suno tu tu la ona li musi kepeken meli': 1,
@@ -182,11 +208,14 @@ let tests = {
 
         'mi Wawa': 1,
         'mi jan Wawa': 0,
+        'jan Mali li jan utala. Ona li pilin pona tan ni. Mi pilin pona kin.': 0,
     },
     sinaO: {
         'sina o moku pona': 1,
         'jan sina o moku pona': 0,
         'mi o moku pona': 0,
+        'sina o!': 0,
+        'sina o, mi moku pona': 0,
     },
     oBeforeAdress: {
         'o jan Lakuse!': 1,
@@ -291,10 +320,13 @@ for(let key in rules) {
 
 let example = `jan o, toki! :-)
 
-mi jan Nikola, li kama pana e lukin pi ilo ni tawa sini.
+mi jan Nikola, li kama
+pana e lukin pi ilo ni tawa sini.
+
 mi pona, taso, toki mi li ken pi ike.
 pona la, mi li jo e ilo ni a!
-mi pali e ilo mi kepeken jan pona mi. jan pona mi li jan Kijom, li pona kin e ilo mi.
+mi pali e ilo mi kepeken jan pona mi. jan pona
+mi li jan Kijom, li pona kin e ilo mi.
 
 Mi pana e ilo ni tawa sina kepeken linluwi :) kulijo a!
 mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
@@ -307,7 +339,7 @@ jan kepeken e ilo mi lon tenpo ale!
 ni li pi pona mute a.
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
-mi wile pona e lipu mi en lipu sina ;)
+mi en sina ken kepeken e ilo mi. mi wile pona e lipu mi en lipu sina ;)
 sina wile kepeken e ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. jan ale li li ken toki tawa mi.
