@@ -242,6 +242,10 @@ let tests = {
         'jan pi moku pona pi musi mute li nasa': 1,
         'jan li moku la, ona li jan pi moku pona la, ona li jan pi musi mute li nasa': 0,
     },
+    longSentence: {
+        'tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken e ilo pona mi pi nasin pona la, o kepeken e ona lon tenpo pi wile sina a': 1,
+        'jan li moku la, ona li jan pi moku pona la, ona li jan pi musi mute li nasa': 0,
+    },
     unsubFromHalfAsInteresting: {
         'poki  loje  lon  sinpin  li  poki \n tawa': 1,
         'suwi  telo wawa kepeken namako en kule ijo kasi': 1,
@@ -347,6 +351,9 @@ sina wile kepeken e ilo mi? pona a!
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. jan ale li li ken toki tawa mi.
 jan li o toki tawa mi a! toki e mi li pona tawa mi.
 lon la, nimi mi li Nikola. taso, ilo Siko la, mi Tasaseka.
+
+tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
+e ilo pona mi pi nasin pona la, o kepeken e ona lon tenpo pi wile sina a!
 
 poki  loje  lon  sinpin  li  poki tawa`;
 

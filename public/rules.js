@@ -372,6 +372,16 @@ function build_rules(wordList) {
             'Multiple <em>pi</em> can lead to ambiguous phrases, consider if all possible meanings are roughly equivalent or if the meaning is clear enough in this context.',
             'warning'
         ),
+        longSentence: new Err(
+            [
+                new RegExp('((' + FULL_SENTENCE_BEGIN + ')' + /([^.!?;]+?)/.source + '(' + FULL_SENTENCE_BEGIN + ')' + ')'),
+                function(m, behind) {
+                    return m[0].split(/[^a-z]+/).length > 30;
+                },
+            ],
+            'Consider breaking long sentences into multiple smaller sentences. Small and simple is better than long and complex. From <em>lipu pu</em>:\n\n<em>"Simplify your thoughts. Less is more."</em>',
+            'warning'
+        ),
 
         unsubFromHalfAsInteresting: new Err(
             /\b(poki\s+loje\s+lon\s+sinpin\s+li\s+poki\s+tawa|suwi\s+telo\s+wawa\s+kepeken\s+namako\s+en\s+kule\s+ijo\s+kasi)\b/,
