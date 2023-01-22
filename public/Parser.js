@@ -61,7 +61,7 @@ function ParserWithCallbacks(rules, useLinebreaks) {
                         var end = start + match[0].length;
 
                         tokens.push({
-                            text: match[0].replaceAll(/\x02/g, ''),
+                            text: match[0].replace(/\x02/g, ''),
                             ruleName: key,
                             match: match,
                         });

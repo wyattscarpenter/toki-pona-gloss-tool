@@ -210,6 +210,8 @@ let tests = {
 
         'mi Wawa': 1,
         'mi jan Wawa': 0,
+        'jan ale li Wile moku': 1,
+        'jan li pona Moku mute la, ona li pona': 0,
         'jan Mali li jan utala. Ona li pilin pona tan ni. Mi pilin pona kin.': 0,
     },
     sinaO: {

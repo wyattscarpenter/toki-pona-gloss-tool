@@ -223,18 +223,26 @@
                     let url = urls[0];
                     // Fetch
                     fetch(url)
-                        .then((x) => x.json())
+                        .then((x) => {
+                            if(x.ok)
+                                return x.json();
+                            else
+                                throw {name: 'NetworkError'};
+                        })
                         .then((data) => {
                             rules = build_rules(parseLipuLinku(data));
                         })
                         .then(run)
                         .catch((err) => {
                             if(urls.length > 1) {
+                                // Fallback URLs
+                                console.log(url, 'failed to load');
                                 fetch_and_run(urls.slice(1));
-                            } else if(("" + err).match(/^TypeError/)) {
+                            } else if(err.name == 'NetworkError') {
+                                // Last fallback URL didn't work
                                 alert('No wordlist available, sorry!');
                             } else {
-                                alert("Oops... Looks like we broke something, try again later...");
+                                alert("Oops... Looks like we broke something, try again later...\n" + JSON.stringify("" + err));
                                 console.log(err);
                             }
                         });

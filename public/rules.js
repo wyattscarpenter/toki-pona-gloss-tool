@@ -329,7 +329,7 @@ function build_rules(wordList) {
                            !cleanSentence.match(/^nimi/);
                 }
             ],
-            "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word\n\n" +
+            "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word.\n\n" +
             "e.g. <em>\"ona li Sonja\"</em> should instead be <em>\"ona li jan Sonja\"</em>.",
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
@@ -450,7 +450,7 @@ function build_rules(wordList) {
         }
 
         for(var i=1; i<match.length; i++) {
-            message = message.replaceAll('$'+(i-1), match[i]);
+            message = message.replace(new RegExp('\\$'+(i-1), 'g'), match[i]);
         }
 
         if(err.more_infos) {
