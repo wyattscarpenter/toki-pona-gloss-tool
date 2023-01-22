@@ -194,7 +194,7 @@ function build_rules(wordList) {
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
 
-                    return cleanSentence.match(/^(mi|sina)\s[\s\S]*en[\s\S]+\be\b/i) &&
+                    return cleanSentence.match(/^(mi|sina)\s+[\s\S]*\ben\b[\s\S]+\be\b/i) &&
                            !cleanSentence.match(/\b(li|o)\b/);
                 },
             ],

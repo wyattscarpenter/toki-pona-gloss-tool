@@ -79,6 +79,8 @@ let tests = {
         "mi mute en sina kama moku e pan": 1,
         "sina en jan kama moku e pan": 1,
 
+        "lipu ni la mi wile pana e sona pi pakala suli. mi wile e ni: sina ken pona e pakala suli. taso, ona li pana ala e sona luka pi nasin pona.": 0,
+
         'mi la mi mute en jan ante li moku ala e ni': 0,
         'mi la mi mute en jan ante li moku ala e ni la, mi pona a': 0,
         'mi en sina en jan ante li pali e ni: ijo pona a': 0,
