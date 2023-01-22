@@ -21,6 +21,7 @@ function build_rules(wordList) {
         .map((pair) => pair[0]);
 
     let allWords = commonWords.concat(uncommonWords);
+    let matchesKnownWord = new RegExp('^\\b(' + allWords.join('|') + ')\\b$');
 
     // \x02 is the ASCII char:       002   2     02    STX (start of text)
     // Full sentence: includes all the `X la, Y la, ... Z`
@@ -77,6 +78,19 @@ function build_rules(wordList) {
     }
 
     var rules = {
+
+        nimiPuAla: new Err(
+            [
+                new RegExp(PARTIAL_SENTENCE_BEGIN + '?' + /(\b([a-z]+)\b)/.source),
+                function(m, behind) {
+                    return !m[m.length-1].match(matchesKnownWord)
+                },
+            ],
+            'Unknown word.',
+            'error',
+            'https://linku.la/'
+        ),
+
         tasoJoinsSentences: new Err(
             /,\s*taso\b/,
             "<em>taso</em> usually isn't used to join two sentences. Consider breaking your sentence into two instead.",
@@ -295,28 +309,25 @@ function build_rules(wordList) {
         unofficialWordWithoutNoun: new Err(
             [
                 new RegExp('(' + PARTIAL_SENTENCE_BEGIN + '([^:;.!?,]+(\\b(' + PARTICLES + '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?)(' + PROPER_NOUNS + '[a-z]*)'),
-                (function() {
-                    let matchesKnownWord = new RegExp('^\\b(' + allWords.join('|') + ')\\b$');
-                    return function(m, behind) {
-                        let cleanSentence = normalizePartialSentence(m[0]);
+                function(m, behind) {
+                    let cleanSentence = normalizePartialSentence(m[0]);
 
-                        // Avoid matching uselessly capitalized toki pona words at the
-                        // start of a sentence, another category of error matches
-                        // that case
-                        if(startOfFullSentence("foo", behind + m[2])) {
-                            let matchedNoun = m[m.length - 4].toLowerCase();
+                    // Avoid matching uselessly capitalized toki pona words at the
+                    // start of a sentence, another category of error matches
+                    // that case
+                    if(startOfFullSentence("foo", behind + m[2])) {
+                        let matchedNoun = m[m.length - 4].toLowerCase();
 
-                            if(matchedNoun.match(matchesKnownWord)) {
-                                return false;
-                            }
+                        if(matchedNoun.match(matchesKnownWord)) {
+                            return false;
                         }
+                    }
 
-                        // `li ... la ... en` might be correct
-                        return !cleanSentence.match(/\bla\b/) &&
-                               // One common exception to the "noun Foreign" rule : "nimi [...] li Xyz"
-                               !cleanSentence.match(/^nimi/);
-                    };
-                })()
+                    // `li ... la ... en` might be correct
+                    return !cleanSentence.match(/\bla\b/) &&
+                           // One common exception to the "noun Foreign" rule : "nimi [...] li Xyz"
+                           !cleanSentence.match(/^nimi/);
+                }
             ],
             "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word\n\n" +
             "e.g. <em>\"ona li Sonja\"</em> should instead be <em>\"ona li jan Sonja\"</em>.",
@@ -386,12 +397,6 @@ function build_rules(wordList) {
             'Proper noun with unauthorized syllables.',
             'warning',
             'https://www.reddit.com/r/tokipona/comments/e09ebn/sona_kalama_pi_toki_pona_table_of_usedpermitted/'
-        ),
-        nimiPuAla: new Err(
-            /\b([a-zA-Z]+)\b/,
-            'Unknown word.',
-            'error',
-            'https://linku.la/'
         ),
         startOfText: new Err(
             /\x02/, '', false
