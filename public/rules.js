@@ -153,7 +153,8 @@ function build_rules(wordList) {
         ),
         dontCapitalizeSentences: new Err(
             [
-                new RegExp('\\b(' +
+                new RegExp(PARTIAL_SENTENCE_BEGIN + '?' +
+                           '\\b(' +
                            allWords.map((x) => x[0].toUpperCase() + x.slice(1))
                                    .join('|') + ')\\b'),
                 function(m, b) {
