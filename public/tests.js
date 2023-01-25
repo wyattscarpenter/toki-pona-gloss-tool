@@ -177,7 +177,7 @@ let tests = {
 
         'jan li lon Inli': 1,
         'jan li toki e Inli': 1,
-        'jan li Nikola': 1,
+        'jan li Nikola': 0,
         'jan li tan Kanse': 1,
         'jan li kepeken Siko': 1,
         'jan o lon Inli': 1,
@@ -210,7 +210,6 @@ let tests = {
 
         'mi Wawa': 1,
         'mi jan Wawa': 0,
-        'jan ale li Wile moku': 1,
         'jan li pona Moku mute la, ona li pona': 0,
         'jan Mali li jan utala. Ona li pilin pona tan ni. Mi pilin pona kin.': 0,
     },

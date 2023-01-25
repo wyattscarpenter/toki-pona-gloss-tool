@@ -309,7 +309,9 @@ function build_rules(wordList) {
         ),
         unofficialWordWithoutNoun: new Err(
             [
-                new RegExp('(' + PARTIAL_SENTENCE_BEGIN + '([^:;.!?,]+(\\b(' + PARTICLES + '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?)(' + PROPER_NOUNS + '[a-z]*)'),
+                new RegExp('(' + PARTIAL_SENTENCE_BEGIN + '([^:;.!?,]+(\\b(' +
+                           'en|e|la|pi|o|anu' + // "x li Proper Noun" is a common construct
+                           '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?)(' + PROPER_NOUNS + '[a-z]*)'),
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
 
@@ -325,13 +327,11 @@ function build_rules(wordList) {
                     }
 
                     // `li ... la ... en` might be correct
-                    return !cleanSentence.match(/\bla\b/) &&
-                           // One common exception to the "noun Foreign" rule : "nimi [...] li Xyz"
-                           !cleanSentence.match(/^nimi/);
+                    return !cleanSentence.match(/\bla\b/);
                 }
             ],
             "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word.\n\n" +
-            "e.g. <em>\"ona li Sonja\"</em> should instead be <em>\"ona li jan Sonja\"</em>.",
+            "e.g. <em>\"mi tan Kanata\"</em> should instead be <em>\"mi tan ma Kanata\"</em>.",
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
         ),
