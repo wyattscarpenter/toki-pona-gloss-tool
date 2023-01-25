@@ -256,6 +256,7 @@ let tests = {
         'Jan ale li sona e ni: mi pona': 1,
         'Jan ale li pona. Mi pona': 2,
         'Mi la, mi pilin pona a': 1,
+        'Nnnnnnnnnnn...': 1,
     },
     nimiSuliPuAla: {
         'mi pali e ilo mi kepeken jan pona mi. jan pona mi li jan Kijom, li pona kin e ilo mi': 1,
@@ -267,6 +268,8 @@ let tests = {
     nimiPuAla: {
         'toki! mi jan Nikola, li kama pana e lukin pi ilo ni tawa sini': 1,
         'this is not toki pona': 3,
+        'mi toki lawa la, mi toki e ni: nnnnnnnnnnnnnnnnnnnnnnn': 0,
+        'mi toki lawa la, mi toki e ni: n': 0,
     },
 };
 

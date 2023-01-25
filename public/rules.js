@@ -13,7 +13,11 @@ function build_rules(wordList) {
         .filter((pair) => {
             return ['common', 'core', 'widespread'].indexOf(pair[1]) != -1;
         })
-        .map((pair) => pair[0]);
+        .map((pair) => {
+            return pair[0] == 'n'
+                 ? 'n+' // Match nnnnn...
+                 : pair[0]
+        });
     let uncommonWords = wordList
         .filter((pair) => {
             return ['common', 'core', 'widespread'].indexOf(pair[1]) == -1;
@@ -155,8 +159,12 @@ function build_rules(wordList) {
             [
                 new RegExp(PARTIAL_SENTENCE_BEGIN + '?' +
                            '\\b(' +
-                           allWords.map((x) => x[0].toUpperCase() + x.slice(1))
-                                   .join('|') + ')\\b'),
+                           allWords.map((x) => {
+                               // Special case for nnnnnnnn...
+                               return x == 'n+'
+                                    ? 'Nn*'
+                                    : x[0].toUpperCase() + x.slice(1)
+                           }).join('|') + ')\\b'),
                 function(m, b) {
                     return startOfFullSentence(m, b);
                 },
@@ -284,13 +292,6 @@ function build_rules(wordList) {
 
                     let cleanSentence = normalizePartialSentence(m[0]);
                     if(cleanSentence.match(/\bla\b/)) return false;
-                    /* 
-                     *                     console.log('=============');
-                     *                     console.log('Z', m[0]);
-                     *                     console.log('X', behind);
-                     * 
-                     *                     if(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind))
-                     *                         return false; */
 
                     // `li ... la ... en` might be correct
                     // TODO: li x pi y en z might be accepted by some people
