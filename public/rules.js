@@ -24,6 +24,12 @@ function build_rules(wordList) {
         })
         .map((pair) => pair[0]);
 
+    /* Force 'ali' (nimi pu) to be in common words... This seems to
+       have fallen out of usage, but it feels wrong to exclude pu
+       words from the commonWords category */
+    commonWords = commonWords.concat('ali');
+    uncommonWords = uncommonWords.filter((x) => x != 'ali');
+
     let allWords = commonWords.concat(uncommonWords);
     let matchesKnownWord = new RegExp('^\\b(' + allWords.join('|') + ')\\b$');
 
