@@ -37,7 +37,7 @@ function build_rules(wordList) {
     // Full sentence: includes all the `X la, Y la, ... Z`
     // Partial sentence: includes only one la/main-block
     let FULL_SENTENCE_BEGIN = /(([\x02;.…!?“”]|\W{3,})\s*)/.source;
-    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,?|a\b,?)?|\W{3,})\s*|,?\bla\b[,\s]*|\bo,\s)/.source;
+    let PARTIAL_SENTENCE_BEGIN = /(([\x02:;.!?“”]\s*(taso,?|a\b,?)?|\W{3,})\s*|[,\s]*\bla\b[,\s]*|\btaso,|,\s*taso\b|\bo,\s)/.source;
     let PARTICLES = 'en|li|e|la|pi|o|anu';
     let PREPOSITIONS = 'lon|tawa|tan|sama|kepeken';
     let PROPER_NOUNS = "((Jan|Jen|Jon|Jun|Kan|Ken|Kin|Kon|Kun|Lan|Len|Lin|Lon|Lun|Man|Men|Min|Mon|Mun|Nan|Nen|Nin|Non|Nun|Pan|Pen|Pin|Pon|Pun|San|Sen|Sin|Son|Sun|Tan|Ten|Ton|Tun|Wan|Wen|Win|An|En|In|On|Un|Ja|Je|Jo|Ju|Ka|Ke|Ki|Ko|Ku|La|Le|Li|Lo|Lu|Ma|Me|Mi|Mo|Mu|Na|Ne|Ni|No|Nu|Pa|Pe|Pi|Po|Pu|Sa|Se|Si|So|Su|Ta|Te|To|Tu|Wa|We|Wi|A|E|I|O|U)(jan|jen|jon|jun|kan|ken|kin|kon|kun|lan|len|lin|lon|lun|man|men|min|mon|mun|nan|nen|nin|non|nun|pan|pen|pin|pon|pun|san|sen|sin|son|sun|tan|ten|ton|tun|wan|wen|win|ja|je|jo|ju|ka|ke|ki|ko|ku|la|le|li|lo|lu|ma|me|mi|mo|mu|na|ne|ni|no|nu|pa|pe|pi|po|pu|sa|se|si|so|su|ta|te|to|tu|wa|we|wi)*)";
@@ -99,13 +99,6 @@ function build_rules(wordList) {
             'Unknown word.',
             'error',
             'https://linku.la/'
-        ),
-
-        tasoJoinsSentences: new Err(
-            /,\s*taso\b/,
-            "Some people avoid using <em>taso</em> to join two sentences, in order to keep sentences simpler. Small and simple is better than long and complex. From <em>lipu pu</em>:\n\n<em>\"Simplify your thoughts. Less is more.\"</em>",
-            'warning',
-            'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_12_Conjunctions,_Temperature'
         ),
         noLiAfterMiSina: new Err(
             [
@@ -240,8 +233,8 @@ function build_rules(wordList) {
         ),
         liPi: new Err(
             /\bli\s+pi\b/,
-            'Are you sure about that <em>li pi</em>?\n\nThis would mean <em>"is owned by"</em> and is not very common.',
-            'suspicious'
+            "Those two particles should not follow each other.\n\nIf you saw that in an old toki pona course, know that it might have been in use at some point in the past, but it's not in use anymore.",
+            'error'
         ),
         consecutiveParticles: new Err(
             [

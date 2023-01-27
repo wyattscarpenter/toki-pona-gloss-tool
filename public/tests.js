@@ -17,14 +17,6 @@ let tok = parser.tokenize('mi moku.');
 
 
 let tests = {
-    tasoJoinsSentences: {
-        'mi pona, taso, toki mi li ken pi ike': 1,
-        'mi wile ala e ni. taso, ni li pona': 0,
-        'sina pona, taso, o moku ala e ni': 1,
-        'mi moku taso la, jan o moku la, jan li moku mute': 0,
-        'mi jan pona, taso, mi wile ala e ni: mi taso la, mi taso mute': 1,
-        'mi jan pona, taso, mi ike lili, taso, jan pona li lon': 2,
-    },
     noLiAfterMiSina: {
         'mi li pona mute a': 1,
         'sina li pona mute a': 1,
@@ -95,6 +87,9 @@ let tests = {
 
         'o awen ala, o pona e mi, o toki e ni tawa mi: jan lawa lili li kama tu…': 0,
         'o pana e pona tawa mi, o toki lawa e ni tawa suno: o weka': 0,
+
+        'mi la, moku li ike, taso moku e kala li pona': 1,
+        'mi la, moku li ike taso, moku e kala li pona': 1,
 
         'tenpo sama la sina ken ala jo e pan suwi li ken ala moku kin e ona': 0,
 
