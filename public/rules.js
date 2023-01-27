@@ -103,7 +103,7 @@ function build_rules(wordList) {
 
         tasoJoinsSentences: new Err(
             /,\s*taso\b/,
-            "<em>taso</em> usually isn't used to join two sentences. Consider breaking your sentence into two instead.",
+            "Some people avoid using <em>taso</em> to join two sentences, in order to keep sentences simpler. Small and simple is better than long and complex. From <em>lipu pu</em>:\n\n<em>\"Simplify your thoughts. Less is more.\"</em>",
             'warning',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_12_Conjunctions,_Temperature'
         ),
@@ -337,8 +337,8 @@ function build_rules(wordList) {
                     return !cleanSentence.match(/\bla\b/);
                 }
             ],
-            "Possible use of unofficial word without a preceding noun.\n\nMake sure your proper noun is preceded by an official word.\n\n" +
-            "e.g. <em>\"mi tan Kanata\"</em> should instead be <em>\"mi tan ma Kanata\"</em>.",
+            "Possible use of unofficial word without a preceding noun.\n\nProper nouns are usually treated as adjectives for toki pona words. Make sure your proper noun is preceded by an official word.\n\n" +
+            "e.g. <em>\"mi tan Kanata\"</em> should instead be <em>\"mi tan ma Kanata\"</em>. <em>\"mi Sonja\"</em> should probably be <em>\"mi jan Sonja\"</em>",
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
         ),

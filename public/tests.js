@@ -354,7 +354,6 @@ sina wile kepeken e ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. jan ale li li ken toki tawa mi.
 jan li o toki tawa mi a! toki e mi li pona tawa mi.
-lon la, nimi mi li Nikola. taso, ilo Siko la, mi Tasaseka.
 
 tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
 e ilo pona mi pi nasin pona la, o kepeken e ona lon tenpo pi wile sina a!
