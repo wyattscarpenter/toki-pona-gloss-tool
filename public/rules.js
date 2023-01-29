@@ -93,7 +93,7 @@ function build_rules(wordList) {
             [
                 new RegExp(PARTIAL_SENTENCE_BEGIN + '?' + /(\b([a-z]+)\b)/.source),
                 function(m, behind) {
-                    return !m[m.length-1].match(matchesKnownWord)
+                    return !m[m.length-1].match(matchesKnownWord);
                 },
             ],
             'Unknown word.',
@@ -225,9 +225,16 @@ function build_rules(wordList) {
             'warning',
             'https://github.com/kilipan/nasin-toki#the-particle-li'
         ),
-        piSuspicious: new Err(
-            new RegExp('(\\bpi\\s+[a-zA-Z]+(\\s+(li|e|pi|en|la|anu|o)\\b|(' + PARTIAL_SENTENCE_BEGIN + ')))'),
-            'Suspicious usage of <em>pi</em> here, pi should usually be followed by at least two words.',
+        piOneWord: new Err(
+            new RegExp('(\\bpi\\s+[a-zA-Z]+(\\s+(li|e|en|la|anu|o)\\b|(' + PARTIAL_SENTENCE_BEGIN + ')))'),
+            '<em>pi</em> does not mean "of". As a general rule, pi should be followed by at least two words.',
+            'error',
+            'https://github.com/kilipan/nasin-toki#the-particle-pi-1'
+        ),
+        piXpi: new Err(
+            new RegExp('\\bpi\\s+[a-zA-Z]+\\s+pi\\s+[a-zA-Z]+\\s+[a-zA-Z]+\\b'),
+            'Suspicious usage of <em>pi</em> here. <em>pi</em> should usually be followed by at least two modifiers.\n\n' +
+            'If you\'re trying to use a compound word (<em>"X pi Y Z"</em>) to form a second compound (<em>"W pi X pi Y Z"</em>), know that this is an unpopular way of doing things. Consider breaking your complex word into multiple simpler sentences.',
             'suspicious',
             'https://github.com/kilipan/nasin-toki#the-particle-pi-1'
         ),
@@ -403,12 +410,25 @@ function build_rules(wordList) {
             'https://linku.la/'
         ),
 
+        // This rule matches words when the 'uncommon' category is disabled
+        uncommonWordOk: new Err(
+            new RegExp('\\b(' + uncommonWords.join('|') + ')\\b'),
+            '', false
+        ),
+
         nimiSuliPuAla: new Err(
             /\b([A-Z][a-zA-Z]*)\b/,
             'Proper noun with unauthorized syllables.',
             'warning',
             'https://www.reddit.com/r/tokipona/comments/e09ebn/sona_kalama_pi_toki_pona_table_of_usedpermitted/'
         ),
+
+        // This rule matches proper nouns when the 'warning' category is disabled
+        properNounsOk: new Err(
+            /\b([A-Z][a-zA-Z]*)\b/,
+            '', false
+        ),
+
         startOfText: new Err(
             /\x02/, '', false
         ),

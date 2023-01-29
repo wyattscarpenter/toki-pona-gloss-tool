@@ -41,8 +41,6 @@
 
                 function run() {
 
-                    reloadOptions();
-
                     let useLinebreaks = $one('#useLinebreaks').checked;
 
                     let allRules = Object.keys(rules).filter(function(x) {
@@ -244,7 +242,21 @@
                                 throw {name: 'NetworkError'};
                         })
                         .then((data) => {
+                            reloadOptions();
                             rules = build_rules(parseLipuLinku(data));
+
+                            ['ignore-warning', 'ignore-suspicious', 'ignore-uncommon'].forEach(function(name) {
+                                let category = name.split('-')[1];
+                                let ignore = $one('#' + name).checked;
+
+                                if(!ignore) return;
+
+                                Object.keys(rules).forEach(function(key) {
+                                    if(rules[key].category == category) {
+                                        delete rules[key];
+                                    }
+                                });
+                            });
                         })
                         .then(run)
                         .catch((err) => {
@@ -269,7 +281,7 @@
                 window.location.reload();
             }
 
-            let optionInputsIds = ['useLinebreaks', 'txt'];
+            let optionInputsIds = ['useLinebreaks', 'ignore-warning', 'ignore-suspicious', 'ignore-uncommon', 'txt'];
             function saveOptions() {
                 optionInputsIds.forEach((id) => {
                     let el = $one('#' + id);
@@ -299,7 +311,17 @@
     <body id="poki">
         <img id="logo" src="logo.svg" alt=""><h1>telo misikeke <small>pi toki pona - a toki pona grammar checker</small></h1>
         <h2 id="subtitle">o alasa e pakala! <small><a href="about.html">[About]</a></small></h2>
-        <p id="options"><label><input id="useLinebreaks" type="checkbox" onclick="reloadWithOptions()"> Line breaks form new sentences</label></p>
+        <p id="options">
+            <label><input id="useLinebreaks" type="checkbox" onclick="reloadWithOptions()"> Line breaks form new sentences</label><br>
+            <label><input id="ignore-warning" type="checkbox" onclick="reloadWithOptions()"> Don't show
+                <span style="background-color: var(--warning-desat); border-bottom: 2px solid var(--warning);">Warnings</span>
+            </label><br>
+            <label><input id="ignore-suspicious" type="checkbox" onclick="reloadWithOptions()"> Don't show
+                <span style="background-color: var(--suspicious-desat); border-bottom: 2px solid var(--suspicious);">Suspicious passages</span>
+            </label><br>
+            <label><input id="ignore-uncommon" type="checkbox" onclick="reloadWithOptions()"> Don't show <span style="background-color: var(--uncommon-desat); border-bottom: 2px solid var(--uncommon);">non-pu/ku words</span>
+            </label>
+        </p>
         <h2 id="loading" style="text-align: center; margin: 30px;">Loading...</h2>
         <div id="poki-pi-toki-sina" style="display: none">
             <textarea id="txt" class="input" spellcheck="false">jan o, toki! :-)
@@ -317,13 +339,16 @@ mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
 ni la, ilo ni li pali e ni: mi sama e jan sona a!
 mi tan e ma Kepeke. jan li tawa e tomo mi la, mi pilin pona.
 
-sina o kepeken e ilo mi! ni li ilo pi nanpa wan :-)
+sina o kepeken ilo mi! ni li ilo pi nanpa wan :-)
 jan pi nasin nasa pi toki ike li sona ala e ilo mi.
 jan kepeken e ilo mi lon tenpo ale!
-ni li pi pona mute a.
+ni li pi pona mute a!
+
+ni li ilo pi nimi pona.
+nasin pi ilo pi nimi pona li ni: o alasa e pakala!
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
-mi en sina ken kepeken e ilo mi. mi wile pona e lipu mi en lipu sina ;)
+mi en sina ken lukin e ilo mi. mi wile pona e lipu mi en lipu sina ;)
 sina wile kepeken e ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. ilo Siko la, mi Nikola.

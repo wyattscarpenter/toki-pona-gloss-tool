@@ -95,10 +95,14 @@ let tests = {
 
         'a, mi sona e ijo sin': 0,
     },
-    piSuspicious: {
+    piOneWord: {
         'jan toki pi pona li musi mute': 1,
         'jan pi pi toki pona li musi mute': 0,
         'mi pi toki li lon': 1,
+    },
+    piXpi: {
+        'mi sona e nasin pi ilo pi nimi pona': 1,
+        'nasin pi ilo pi nimi pona li pona tawa mi': 1,
     },
     liPi: {
         'jan ni li pi mi': 1,
@@ -338,17 +342,20 @@ mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
 ni la, ilo ni li pali e ni: mi sama e jan sona a!
 mi tan e ma Kepeke. jan li tawa e tomo mi la, mi pilin pona.
 
-sina o kepeken e ilo mi! ni li ilo pi nanpa wan :-)
+sina o kepeken ilo mi! ni li ilo pi nanpa wan :-)
 jan pi nasin nasa pi toki ike li sona ala e ilo mi.
 jan kepeken e ilo mi lon tenpo ale!
-ni li pi pona mute a.
+ni li pi pona mute a!
+
+ni li ilo pi nimi pona.
+nasin pi ilo pi nimi pona li ni: o alasa e pakala!
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
-mi en sina ken kepeken e ilo mi. mi wile pona e lipu mi en lipu sina ;)
+mi en sina ken lukin e ilo mi. mi wile pona e lipu mi en lipu sina ;)
 sina wile kepeken e ilo mi? pona a!
 
-sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. jan ale li li ken toki tawa mi.
-jan li o toki tawa mi a! toki e mi li pona tawa mi.
+sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. ilo Siko la, mi Nikola.
+jan ale li li ken toki tawa mi. jan li o toki tawa mi a! toki e mi li pona tawa mi.
 
 tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
 e ilo pona mi pi nasin pona la, o kepeken e ona lon tenpo pi wile sina a!
