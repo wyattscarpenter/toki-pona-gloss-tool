@@ -354,7 +354,7 @@ function build_rules(wordList) {
             'https://github.com/kilipan/nasin-toki#the-particle-o'
         ),
         oBeforeAdress: new Err(
-            /\bo\s+(meli|mije|tonsi|jan)\b/,
+            /\bo\s+(meli|mije|tonsi|jan|sina)\b/,
             "<em>o Person</em> is a command/wish to <em>personify</em> something. " +
             "If you meant to address someone, the <em>o</em> particle goes after.\n\n" +
             'e.g. <em>"o jan Lakuse!"</em> should be <em>"jan Lakuse o!"</em>',
