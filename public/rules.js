@@ -259,19 +259,19 @@ function build_rules(wordList) {
             function(m) {
 
                 if(m[3] == 'sama') {
-                    return 'Double check: <em>sama</em> as an action verbe (<em>sama e X</em>) is uncommon.\n\n' +
+                    return 'Double check: <em>sama</em> as an action verb (<em>sama e X</em>) is uncommon.\n\n' +
                            'This would mean <em>"to imitate X"</em>. ' +
                            'The prepositional form <em>"sama X"</em> (<em>"like X"</em>, <em>"same as X"</em>) is much more common.';
                 } else if(m[3] == 'lon') {
-                    return 'Double check: <em>lon</em> as an action verbe (<em>lon e X</em>) is uncommon.\n\n' +
+                    return 'Double check: <em>lon</em> as an action verb (<em>lon e X</em>) is uncommon.\n\n' +
                            'This would mean <em>"to make X </em>real/aware/awake/conscious". ' +
                            'The prepositional form <em>"lon X"</em> (<em>"at/in/on X"</em>) is much more common.';
                 } else if(m[3] == 'tan') {
-                    return 'Double check: <em>tan</em> as an action verbe (<em>tan e X</em>) is uncommon.\n\n' +
+                    return 'Double check: <em>tan</em> as an action verb (<em>tan e X</em>) is uncommon.\n\n' +
                            'This would mean <em>"to cause X"</em>. ' +
                            'The prepositional form <em>"tan X"</em> (<em>"because of X"</em>, <em>"from X"</em>) is much more common.';
                 } else {
-                    return 'Double check: <em>$2</em> as an action verbe (<em>$2 e X</em>) is uncommon.';
+                    return 'Double check: <em>$2</em> as an action verb (<em>$2 e X</em>) is uncommon.';
                 }
             },
             'suspicious',
@@ -287,7 +287,7 @@ function build_rules(wordList) {
                     return true;
                 }
             ],
-            'Double check: <em>tawa</em> as an action verbe is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>) with this object.\n\nDid you mean <em>tawa $4</em>?',
+            'Double check: <em>tawa</em> as an action verb is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>) with this object.\n\nDid you mean <em>tawa $4</em>?',
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_6_Prepositions_1_lon,_kepeken,_and_tawa'
         ),
