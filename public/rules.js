@@ -312,17 +312,7 @@ function build_rules(wordList) {
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_7_Prepositions_2_Other_prepositions'
         ),
         suspiciousEn: new Err(
-            [
-                new RegExp('(' + /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?)' + PARTIAL_SENTENCE_BEGIN),
-                function(m, behind) {
-
-                    let cleanSentence = normalizePartialSentence(m[2]);
-
-                    // `li ... la ... en` might be correct
-                    // TODO: li x pi y en z might be accepted by some people
-                    return !cleanSentence.match(/\bla\b/);
-                }
-            ],
+            new RegExp('(' + /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?)' + PARTIAL_SENTENCE_BEGIN),
             '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em>, multiple <em>e</em> or multiple prepositions instead.',
             'suspicious',
             'https://github.com/kilipan/nasin-toki#the-particle-en'
