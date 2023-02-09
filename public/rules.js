@@ -291,6 +291,25 @@ function build_rules(wordList) {
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_6_Prepositions_1_lon,_kepeken,_and_tawa'
         ),
+        badPreposition: new Err(
+            [
+                /\b(li|o|mi|sina)\s+(insa|poka)\b/,
+                function(m, behind) {
+                    return !(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind))
+                }
+            ],
+            function(m) {
+                if(m[3] == 'insa') {
+                    return 'Double check: <em>insa</em> as a predicate is suspicious. In most cases, it would mean something such as "<em>is the inside</em> of X".\n\n' +
+                           'If you meant "is inside of X", you probably should use "lon insa X".';
+                } else {
+                    return 'Double check: <em>poka</em> as a predicate is suspicious. It would mean something such as "<em>is the side</em> of".\n\n' +
+                           'If you meant "is beside/nearby X", you probably should use "lon poka X".';
+                }
+            },
+            'suspicious',
+            'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_7_Prepositions_2_Other_prepositions'
+        ),
         suspiciousEn: new Err(
             [
                 new RegExp(/(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?' + PARTIAL_SENTENCE_BEGIN),

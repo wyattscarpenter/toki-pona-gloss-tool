@@ -145,6 +145,17 @@ let tests = {
         'jan tawa li tawa e tomo sina la, ona li lon tomo sina': 1,
         'mi tawa ala e tomo sina!': 1,
         'mi o tawa ala e tomo sina!': 1,
+        'mi o tawa e tomo sina!': 1,
+    },
+    badPreposition: {
+        'mi poka sina': 1,
+        'mi insa tomo': 1,
+        'ona li insa tomo': 1,
+        'o insa tomo mi': 1,
+        'o poka tomo mi': 1,
+        'mi o poka tomo mi': 1,
+        'ona li tomo insa': 0,
+        'mi lon poka sina': 0,
     },
     suspiciousEn: {
         'mi en sina li lon': 0,
@@ -348,7 +359,7 @@ jan kepeken e ilo mi lon tenpo ale!
 ni li pi pona mute a!
 
 ni li ilo pi nimi pona.
-nasin pi ilo pi nimi pona li ni: o alasa e pakala!
+nasin pi ilo pi nimi pona li ni: pakala li insa toki sina la, o alasa e ona!
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
 mi en sina ken lukin e ilo mi. mi wile pona e lipu mi en lipu sina ;)
