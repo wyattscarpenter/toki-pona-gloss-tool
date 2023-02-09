@@ -225,6 +225,10 @@ let tests = {
         'mi jan Wawa': 0,
         'jan li pona Moku mute la, ona li pona': 0,
         'jan Mali li jan utala. Ona li pilin pona tan ni. Mi pilin pona kin.': 0,
+
+        // The Pingo-exception
+        'mi tawa kepeken Pingo mi': 0,
+        'Pingo mi li lon Pingo suli ante': 0,
     },
     sinaO: {
         'sina o moku pona': 1,
@@ -270,6 +274,9 @@ let tests = {
         'Jan ale li pona. Mi pona': 2,
         'Mi la, mi pilin pona a': 1,
         'Nnnnnnnnnnn...': 1,
+
+        // The Pingo-exception
+        'Pingo mi li wawa': 0,
     },
     nimiSuliPuAla: {
         'mi pali e ilo mi kepeken jan pona mi. jan pona mi li jan Kijom, li pona kin e ilo mi': 1,

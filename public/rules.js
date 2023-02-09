@@ -31,6 +31,10 @@ function build_rules(wordList) {
     uncommonWords = uncommonWords.filter((x) => x != 'ali');
 
     let allWords = commonWords.concat(uncommonWords);
+
+    // Yeah, it's basically just the word "Pingo"
+    let jokeWordsThatStartWithACapitalLetter = allWords.filter((x) => x.match(/^[A-Z]/));
+
     let matchesKnownWord = new RegExp('^\\b(' + allWords.join('|') + ')\\b$');
 
     // \x02 is the ASCII char:       002   2     02    STX (start of text)
@@ -165,7 +169,8 @@ function build_rules(wordList) {
                                     : x[0].toUpperCase() + x.slice(1)
                            }).join('|') + ')\\b'),
                 function(m, b) {
-                    return startOfFullSentence(m, b);
+                    return startOfFullSentence(m, b) &&
+                           jokeWordsThatStartWithACapitalLetter.indexOf(m[m.length-1]) === -1;
                 },
             ],
             'Sentences should not start with a capital letter.',
@@ -335,6 +340,9 @@ function build_rules(wordList) {
                            '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?)(' + PROPER_NOUNS + '[a-z]*)'),
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
+
+                    if(jokeWordsThatStartWithACapitalLetter.indexOf(m[10]) !== -1)
+                        return false;
 
                     // Avoid matching uselessly capitalized toki pona words at the
                     // start of a sentence, another category of error matches
