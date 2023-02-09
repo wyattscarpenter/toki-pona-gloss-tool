@@ -283,7 +283,7 @@ function build_rules(wordList) {
         ),
         suspiciousTawa: new Err(
             [
-                /\b(li|o|mi|sina)\s+tawa(\s+(ala|kin))?\s+e\s+(tomo|ma|mun|nasin|lupa)\b/,
+                /\b(li|o|mi|sina)\s+tawa(\s+(ala|kin))?\s+e\s+(tomo|ma|mun|nasin|lupa|sewi)\b/,
                 function(m, behind) {
                     return !(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind));
                 }
