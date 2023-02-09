@@ -3,7 +3,10 @@ image: alpine:latest
 pages:
   stage: deploy
   script:
-  - echo 'Nothing to do...'
+  - MD5_CSS=$(cat public/*.css | md5sum | awk '{ print $1 }')
+  - sed -ri 's/\{MD5_CSS\}/'$MD5_CSS'/g' public/*.html
+  - MD5_JS=$(cat public/*.js | md5sum | awk '{ print $1 }')
+  - sed -ri 's/\{MD5_JS\}/'$MD5_JS'/g' public/*.html
   artifacts:
     paths:
     - public
