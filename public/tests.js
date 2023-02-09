@@ -172,6 +172,9 @@ let tests = {
         'mi en sina en jan ante li pali e ni: ijo pona a': 0,
         'jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
         'mi en jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
+
+        'lipu sina li pakala en ike la, ilo mi li ken pona e ona': 1,
+        'lipu mi en lipu sina li pakala en ike la, ilo mi li ken pona e ona': 1,
     },
     suspiciousKepeken: {
         'tenpo pi suno tu tu la ona li musi kepeken meli': 1,
