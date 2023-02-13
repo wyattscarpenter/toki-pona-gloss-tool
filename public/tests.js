@@ -49,6 +49,15 @@ let tests = {
 
         'o lukin e sewi. o seme e sina: soweli wan li moku ala moku e kasi loje??': 0,
     },
+    alaMultipleWords: {
+        'sina moku mute ala moku mute?': 1,
+        'sina wile moku mute ala moku mute?': 1,
+        'sina wile kama moku mute ala wile kama moku mute?': 1,
+        'jan li wile toki ala wile toki tawa mi?': 1,
+        'jan li wile ala li wile ala mute toki tawa mi': 0,
+        'jan o pona ala pona e ni?': 0,
+        'mi ken ala ken pakala e ni?': 0,
+    },
     objectWithoutVerb: {
         'jan moku e pan': 1,
         'jan moku e pan la, mi pilin pona': 1,
@@ -377,6 +386,7 @@ sina wile kepeken e ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. ilo Siko la, mi Nikola.
 jan ale li li ken toki tawa mi. jan li o toki tawa mi a! toki e mi li pona tawa mi.
+sina wile toki ala wile toki tawa mi?
 
 tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
 e ilo pona mi pi nasin pona la, o kepeken e ona lon tenpo pi wile sina a!

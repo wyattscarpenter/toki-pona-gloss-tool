@@ -158,6 +158,22 @@ function build_rules(wordList) {
             'warning',
             'https://github.com/kilipan/nasin-toki#questions'
         ),
+        alaMultipleWords: new Err(
+            [
+                /\b((\w+\s+)+\w+)\s+ala\s+\2\b/,
+                function(m, behind) {
+                    let isParticle = new RegExp('^(' + PARTICLES + ')$');
+
+                    // Particles aren't matched as part of that
+                    return m[0].split(/[^a-z]/).filter(function(x) {
+                        return x.match(isParticle);
+                    }).length == 0;
+                }
+            ],
+            'In <em>X ala X</em> questions, the repeated part is typically only one word.\n\nFor multi word phrases, repeat only the head (<em>sina moku ala moku mute?</em>)\nWhen your question contains a preverb, repeat only the preverb (<em>sina ken ala ken pali?</em>)',
+            'warning',
+            'https://github.com/kilipan/nasin-toki#x-ala-x'
+        ),
         dontCapitalizeSentences: new Err(
             [
                 new RegExp(PARTIAL_SENTENCE_BEGIN + '?' +
