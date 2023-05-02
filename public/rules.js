@@ -334,6 +334,17 @@ function build_rules(wordList) {
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_7_Prepositions_2_Other_prepositions'
         ),
+        lukinSama: new Err(
+            [
+                /\b(li|o|mi|sina)\s+lukin\s+sama\b/,
+                function(m, behind) {
+                    return !(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind));
+                }
+            ],
+            '<em>lukin sama</em> as a verb might be a calque of the english <em>"looks the same"</em>.\n\n<em>lukin</em> as a main predicate means <em>to watch</em> or <em>to seek</em>. If you meant <em>X looks the same as Y</em>, consider using something like <em>X en Y li sama lukin</em>, or <em>X li sama Y tawa lukin</em>.',
+            'suspicious',
+            'https://www.reddit.com/r/tokipona/comments/tzkbfw/comment/i41fpoe/'
+        ),
         suspiciousEn: new Err(
             new RegExp('(' + /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?)' + PARTIAL_SENTENCE_BEGIN),
             '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em>, multiple <em>e</em> or multiple prepositions instead.',
