@@ -93,6 +93,13 @@ function build_rules(wordList) {
 
     var rules = {
 
+        // Ignore URLs
+        url: new Err(
+            // URL regex from https://stackoverflow.com/a/3809435
+            /(https?:\/\/(www\.)?)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i,
+            '', false
+        ),
+
         nimiPuAla: new Err(
             [
                 new RegExp(PARTIAL_SENTENCE_BEGIN + '?' + /(\b([a-z]+)\b)/.source),
