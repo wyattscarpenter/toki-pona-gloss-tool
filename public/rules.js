@@ -334,6 +334,38 @@ function build_rules(wordList) {
             'suspicious',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_7_Prepositions_2_Other_prepositions'
         ),
+        lukinPona: new Err(
+            [
+                /* This rule is a bit tricky, it's a common mistake
+                   made by newcomers, but it's also a valid way to
+                   express a variety of things that experienced
+                   speakers might want to use.
+
+                   The simplest forms are matched
+
+                       mi/sina lukin pona
+                       X li lukin pona
+
+                   but more complex forms will be ignored
+
+                   e.g.
+                       oko mi li wile e ilo _pi lukin pona_
+                       o lukin pona!
+                       sina lukin pona _e_ ni
+                 */
+                /\b(li|mi|sina)\s+lukin\s+pona\b(\s+e\b)?/,
+                function(m, behind) {
+                    // "lukin pona" as an action verb probably doesn't mean "beautiful"
+                    if(m[m.length-1])
+                        return false;
+
+                    return !(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind));
+                }
+            ],
+            '<em>lukin pona</em> is often (wrongly) used as a calque of the english "looks good". In toki pona, it would mean instead "to watch well", "to scrutinize", or "to seek to make better".\n\nIf you meant "visually good", use <em>pona</em> as the head and <em>lukin</em> as a modifier: "pona lukin".',
+            'suspicious',
+            'https://www.reddit.com/r/tokipona/comments/sd3ufb/whats_different_between_pona_lukin_and_lukin_pona/'
+        ),
         lukinSama: new Err(
             [
                 /\b(li|o|mi|sina)\s+lukin\s+sama\b/,

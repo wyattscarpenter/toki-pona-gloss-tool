@@ -166,6 +166,16 @@ let tests = {
         'ona li tomo insa': 0,
         'mi lon poka sina': 0,
     },
+    lukinPona: {
+        'sina lukin pona': 1,
+        'mi jo e len pona la mi lukin pona': 1,
+        'jan li olin la ona li lukin pona mute': 1,
+        'jan o lukin pona. ni li pona tawa mi': 0,
+        'oko mi li wile e ilo pi lukin pona': 0,
+        'mi wile lukin e mun la, mi wile e ilo lukin pona': 0,
+        'sina alasa la o lukin pona': 0,
+        'jan li lukin pona e ijo la, ijo li lon': 0,
+    },
     lukinSama: {
         'mi lukin sama sina': 1,
         'ona li lukin sama ijo ante': 1,
@@ -384,7 +394,8 @@ jan pi nasin nasa pi toki ike li sona ala e ilo mi.
 jan kepeken e ilo mi lon tenpo ale!
 ni li pi pona mute a!
 
-ilo ni li lukin sama ilo https://languagetool.org/. ni li ilo pi nimi pona.
+ilo ni li lukin sama ilo https://languagetool.org/.
+ni li ilo pi nimi pona. ona li lukin pona.
 nasin pi ilo pi nimi pona li ni: pakala li insa toki sina la, o alasa e ona!
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
