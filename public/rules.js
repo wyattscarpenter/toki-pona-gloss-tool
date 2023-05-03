@@ -424,7 +424,8 @@ function build_rules(wordList) {
                 })(),
             ],
             'Multiple <em>pi</em> can lead to ambiguous phrases, consider if all possible meanings are roughly equivalent or if the meaning is clear enough in this context.',
-            'warning'
+            'warning',
+            'https://github.com/kilipan/nasin-toki#in-pi-phrases'
         ),
         longSentence: new Err(
             [
