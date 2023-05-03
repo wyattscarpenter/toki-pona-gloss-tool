@@ -391,7 +391,7 @@ mi tan e ma Kepeke. jan li tawa e tomo mi la, mi pilin pona.
 
 sina o kepeken ilo mi! ni li ilo pi nanpa wan :-)
 jan pi nasin nasa pi toki ike li sona ala e ilo mi.
-jan kepeken e ilo mi lon tenpo ale!
+mi wile e ni: ilo mi pona e toki pi jan ale.
 ni li pi pona mute a!
 
 ilo ni li lukin sama ilo https://languagetool.org/.
@@ -400,14 +400,14 @@ nasin pi ilo pi nimi pona li ni: pakala li insa toki sina la, o alasa e ona!
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
 mi en sina ken lukin e ilo mi. mi wile pona e lipu mi en lipu sina ;)
-sina wile kepeken e ilo mi? pona a!
+sina wile kepeken ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. ilo Siko la, mi Nikola.
 jan ale li li ken toki tawa mi. jan li o toki tawa mi a! toki e mi li pona tawa mi.
 sina wile toki ala wile toki tawa mi?
 
 tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
-e ilo pona mi pi nasin pona la, o kepeken e ona lon tenpo pi wile sina a!
+e ilo pona mi pi nasin pona la, o kepeken ona lon tenpo pi wile sina a!
 
 poki  loje  lon  sinpin  li  poki tawa`;
 
