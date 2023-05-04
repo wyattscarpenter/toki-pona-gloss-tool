@@ -249,7 +249,7 @@
                             rules = build_rules(parseLipuLinku(data));
 
                             ['ignore-nitpick', 'ignore-possible-error', 'ignore-uncommon'].forEach(function(name) {
-                                let category = name.split('-')[1];
+                                let category = name.replace(/^ignore-/, '');
                                 let ignore = $one('#' + name).checked;
 
                                 if(!ignore) return;
