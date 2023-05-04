@@ -143,7 +143,7 @@ function build_rules(wordList) {
                 else
                     return "This word probably shouldn't appear twice, unless you really meant <em>\"They are them\"</em> or <em>\"their them\"</em>.";
             },
-            'suspicious'
+            'possible-error'
         ),
         illFormedQuestion: new Err(
             [
@@ -162,7 +162,7 @@ function build_rules(wordList) {
                 },
             ],
             'Ill-formed question.\n\nYou should use either the form <em>"[verb] ala [verb]</em>, the form <em>"X, anu seme?"</em> or at least include either of the words <em>anu</em> or <em>seme</em>.',
-            'warning',
+            'nitpick',
             'https://github.com/kilipan/nasin-toki#questions'
         ),
         alaMultipleWords: new Err(
@@ -178,7 +178,7 @@ function build_rules(wordList) {
                 }
             ],
             'In <em>X ala X</em> questions, the repeated part is typically only one word.\n\nFor multi word phrases, repeat only the head (<em>sina moku ala moku mute?</em>)\nWhen your question contains a preverb, repeat only the preverb (<em>sina ken ala ken pali?</em>)',
-            'warning',
+            'nitpick',
             'https://github.com/kilipan/nasin-toki#x-ala-x'
         ),
         dontCapitalizeSentences: new Err(
@@ -250,7 +250,7 @@ function build_rules(wordList) {
             ],
             "A <em>li</em> is required unless the subject is exactly and only <em>mi</em> or exactly and only <em>sina</em>.\n\n" +
             'e.g. <em>"mi en sina li moku"</em> is prefered over <em>"mi en sina moku"</em>',
-            'warning',
+            'nitpick',
             'https://github.com/kilipan/nasin-toki#the-particle-li'
         ),
         piOneWord: new Err(
@@ -263,7 +263,7 @@ function build_rules(wordList) {
             new RegExp('\\bpi\\s+[a-zA-Z]+\\s+pi\\s+[a-zA-Z]+\\s+[a-zA-Z]+\\b'),
             'Suspicious usage of <em>pi</em> here. <em>pi</em> should usually be followed by at least two modifiers.\n\n' +
             'If you\'re trying to use a compound word (<em>"X pi Y Z"</em>) to form a second compound (<em>"W pi X pi Y Z"</em>), know that this is an unpopular way of doing things. Consider breaking your complex word into multiple simpler sentences.',
-            'suspicious',
+            'possible-error',
             'https://github.com/kilipan/nasin-toki#the-particle-pi-1'
         ),
         liPi: new Err(
@@ -301,7 +301,7 @@ function build_rules(wordList) {
                     return 'Double check: <em>$2</em> as an action verb (<em>$2 e X</em>) is uncommon.';
                 }
             },
-            'suspicious',
+            'possible-error',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_6_Prepositions_1_lon,_kepeken,_and_tawa'
         ),
         suspiciousTawa: new Err(
@@ -312,7 +312,7 @@ function build_rules(wordList) {
                 }
             ],
             'Double check: <em>tawa</em> as an action verb is suspicious with this object.\n\nThis would mean <em>"to move/displace X"</em>. The prepositional form <em>"tawa X"</em> is much more common (<em>"going to X"</em>, <em>"in the direction of X"</em>) with this object.\n\nDid you mean <em>tawa $4</em>?',
-            'suspicious',
+            'possible-error',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_6_Prepositions_1_lon,_kepeken,_and_tawa'
         ),
         badPreposition: new Err(
@@ -331,7 +331,7 @@ function build_rules(wordList) {
                            'If you meant "is beside/nearby X", you probably should use "lon poka X".';
                 }
             },
-            'suspicious',
+            'possible-error',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_7_Prepositions_2_Other_prepositions'
         ),
         lukinPona: new Err(
@@ -363,7 +363,7 @@ function build_rules(wordList) {
                 }
             ],
             '<em>lukin pona</em> is often (wrongly) used as a calque of the english "looks good". In toki pona, it would mean instead "to watch well", "to scrutinize", or "to seek to make better".\n\nIf you meant "visually good", use <em>pona</em> as the head and <em>lukin</em> as a modifier: "pona lukin".',
-            'suspicious',
+            'possible-error',
             'https://www.reddit.com/r/tokipona/comments/sd3ufb/whats_different_between_pona_lukin_and_lukin_pona/'
         ),
         lukinSama: new Err(
@@ -374,7 +374,7 @@ function build_rules(wordList) {
                 }
             ],
             '<em>lukin sama</em> as a verb might be a calque of the english <em>"looks the same"</em>.\n\n<em>lukin</em> as a main predicate means <em>to watch</em> or <em>to seek</em>. If you meant <em>X looks the same as Y</em>, consider using something like <em>X en Y li sama lukin</em>, or <em>X li sama Y tawa lukin</em>.',
-            'suspicious',
+            'possible-error',
             'https://www.reddit.com/r/tokipona/comments/tzkbfw/comment/i41fpoe/'
         ),
         modifyingPreverb: new Err(
@@ -419,7 +419,7 @@ function build_rules(wordList) {
                 }
             ],
             'It looks like you are trying to modify a preverb ("$2 <em>$3</em> $4").\n\nExcept for negation with <em>ala</em>, adding a modifier to a preverb is not a common thing to do, and can be misleading.',
-            'warning',
+            'nitpick',
             'https://github.com/kilipan/nasin-toki#negation-of-preverbs',
         ),
         /*
@@ -428,13 +428,13 @@ function build_rules(wordList) {
         suspiciousEn: new Err(
             new RegExp('(' + /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?)' + PARTIAL_SENTENCE_BEGIN),
             '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em>, multiple <em>e</em> or multiple prepositions instead.',
-            'suspicious',
+            'possible-error',
             'https://github.com/kilipan/nasin-toki#the-particle-en'
         ),
         suspiciousKepeken: new Err(
             /\bkepeken\s+(meli|mije|tonsi|jan)\b/,
             "Suspicious use of <em>kepeken</em> here.\n\n<em>kepeken Person</em> means <em>\"using Person\"</em>, not <em>\"with Person\"</em>. If you meant <em>\"with Person\"</em> in the sense of <em>\"alongside Person\"</em>, you can use something such as <em>\"lon poka Person\"</em>. You could also rephrase it as <em>\"X en Person li ...\"</em>",
-            'suspicious',
+            'possible-error',
             'https://www.reddit.com/r/tokipona/comments/zwhun3/comment/j1usd44/'
         ),
         unofficialWordWithoutNoun: new Err(
@@ -465,7 +465,7 @@ function build_rules(wordList) {
             ],
             "Possible use of unofficial word without a preceding noun.\n\nProper nouns are usually treated as adjectives for toki pona words. Make sure your proper noun is preceded by an official word.\n\n" +
             "e.g. <em>\"mi tan Kanata\"</em> should instead be <em>\"mi tan ma Kanata\"</em>. <em>\"mi Sonja\"</em> should probably be <em>\"mi jan Sonja\"</em>",
-            'suspicious',
+            'possible-error',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
         ),
         sinaO: new Err(
@@ -476,7 +476,7 @@ function build_rules(wordList) {
                 }
             ],
             '<em>sina</em> can be omitted with <em>o</em>.',
-            'warning',
+            'nitpick',
             'https://github.com/kilipan/nasin-toki#the-particle-o'
         ),
         oBeforeAdress: new Err(
@@ -484,13 +484,13 @@ function build_rules(wordList) {
             "<em>o Person</em> is a command/wish to <em>personify</em> something. " +
             "If you meant to address someone, the <em>o</em> particle goes after.\n\n" +
             'e.g. <em>"o jan Lakuse!"</em> should be <em>"jan Lakuse o!"</em>',
-            'suspicious',
+            'possible-error',
             'https://www.youtube.com/watch?v=ywRsfMZjp8Q&t=1627s',
         ),
         piNanpa: new Err(
             /\bpi\s+nanpa\s+((wan|tu|luka|mute|ale|ali)\s+)*(wan|tu|luka|mute|ale|ali)/,
             '<em>pi</em> can be omitted with <em>nanpa</em> as an ordinal marker.',
-            'warning',
+            'nitpick',
             'https://github.com/kilipan/nasin-toki#ordinals'
         ),
         multiplePi: new Err(
@@ -504,7 +504,7 @@ function build_rules(wordList) {
                 })(),
             ],
             'Multiple <em>pi</em> can lead to ambiguous phrases, consider if all possible meanings are roughly equivalent or if the meaning is clear enough in this context.',
-            'warning',
+            'nitpick',
             'https://github.com/kilipan/nasin-toki#in-pi-phrases'
         ),
         longSentence: new Err(
@@ -515,7 +515,7 @@ function build_rules(wordList) {
                 },
             ],
             'Consider breaking long sentences into multiple smaller sentences. Small and simple is better than long and complex. From <em>lipu pu</em>:\n\n<em>"Simplify your thoughts. Less is more."</em>',
-            'warning'
+            'nitpick'
         ),
 
         unsubFromHalfAsInteresting: new Err(
@@ -529,7 +529,6 @@ function build_rules(wordList) {
             new RegExp('\\b((' + commonWords.join('|') + ')|' + /((Jan|Jen|Jon|Jun|Kan|Ken|Kin|Kon|Kun|Lan|Len|Lin|Lon|Lun|Man|Men|Min|Mon|Mun|Nan|Nen|Nin|Non|Nun|Pan|Pen|Pin|Pon|Pun|San|Sen|Sin|Son|Sun|Tan|Ten|Ton|Tun|Wan|Wen|Win|An|En|In|On|Un|Ja|Je|Jo|Ju|Ka|Ke|Ki|Ko|Ku|La|Le|Li|Lo|Lu|Ma|Me|Mi|Mo|Mu|Na|Ne|Ni|No|Nu|Pa|Pe|Pi|Po|Pu|Sa|Se|Si|So|Su|Ta|Te|To|Tu|Wa|We|Wi|A|E|I|O|U)(jan|jen|jon|jun|kan|ken|kin|kon|kun|lan|len|lin|lon|lun|man|men|min|mon|mun|nan|nen|nin|non|nun|pan|pen|pin|pon|pun|san|sen|sin|son|sun|tan|ten|ton|tun|wan|wen|win|ja|je|jo|ju|ka|ke|ki|ko|ku|la|le|li|lo|lu|ma|me|mi|mo|mu|na|ne|ni|no|nu|pa|pe|pi|po|pu|sa|se|si|so|su|ta|te|to|tu|wa|we|wi)*)/.source + ')\\b'),
             '', false),
 
-        // Not an error either, but small warning
         uncommonWord: new Err(
             new RegExp('\\b(' + uncommonWords.join('|') + ')\\b'),
             'Uncommon word, make sure your target audience knows it.',
@@ -546,11 +545,11 @@ function build_rules(wordList) {
         nimiSuliPuAla: new Err(
             /\b([A-Z][a-zA-Z]*)\b/,
             'Proper noun with unauthorized syllables.',
-            'warning',
+            'nitpick',
             'https://www.reddit.com/r/tokipona/comments/e09ebn/sona_kalama_pi_toki_pona_table_of_usedpermitted/'
         ),
 
-        // This rule matches proper nouns when the 'warning' category is disabled
+        // This rule matches loan words when the 'nitpick' category is disabled
         properNounsOk: new Err(
             /\b([A-Z][a-zA-Z]*)\b/,
             '', false

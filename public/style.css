@@ -138,22 +138,22 @@ ul {
 }
 
 :root {
-  --warning-h: 50;
-  --suspicious-h: 280;
+  --nitpick-h: 50;
+  --possible-error-h: 280;
   --error-h: 0;
   --uncommon-h: 200;
 
-  --warning: hsl(var(--warning-h), 100%, 70%);
-  --suspicious: hsl(var(--suspicious-h), 100%, 70%);
+  --nitpick: hsl(var(--nitpick-h), 100%, 70%);
+  --possible-error: hsl(var(--possible-error-h), 100%, 70%);
   --error: hsl(var(--error-h), 100%, 70%);
   --uncommon: hsl(var(--uncommon-h), 100%, 70%);
 
-  --warning-desat: hsl(var(--warning-h), 100%, 97%);
-  --suspicious-desat: hsl(var(--suspicious-h), 100%, 97%);
+  --nitpick-desat: hsl(var(--nitpick-h), 100%, 97%);
+  --possible-error-desat: hsl(var(--possible-error-h), 100%, 97%);
   --error-desat: hsl(var(--error-h), 100%, 97%);
   --uncommon-desat: hsl(var(--uncommon-h), 100%, 97%);
 
-  --warning-desaturated: hsl(
+  --nitpick-desaturated: hsl(
       var(--foreground-h),
       calc(var(--foreground-s) / 2%),
       calc(var(--foreground-l) * 1%)

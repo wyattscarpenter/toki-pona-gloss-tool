@@ -202,8 +202,11 @@
                         // Get match
                         let index = Array.prototype.indexOf.call(element.parentNode.children, element);
                         let match = parser.tokens[index].match;
+                        let categoryName = category.replace(/-/g, ' ');
+                        categoryName = categoryName[0].toUpperCase() + categoryName.slice(1);
+
                         let content = '<div class="error-category">' +
-                                      category[0].toUpperCase() + category.slice(1) +
+                                      categoryName +
                                       '</div>' +
                                       getMessage(errorCode, match).replace(/\n/g, '<br>');
 
@@ -245,7 +248,7 @@
                             reloadOptions();
                             rules = build_rules(parseLipuLinku(data));
 
-                            ['ignore-warning', 'ignore-suspicious', 'ignore-uncommon'].forEach(function(name) {
+                            ['ignore-nitpick', 'ignore-possible-error', 'ignore-uncommon'].forEach(function(name) {
                                 let category = name.split('-')[1];
                                 let ignore = $one('#' + name).checked;
 
@@ -281,7 +284,7 @@
                 window.location.reload();
             }
 
-            let optionInputsIds = ['useLinebreaks', 'ignore-warning', 'ignore-suspicious', 'ignore-uncommon', 'txt'];
+            let optionInputsIds = ['useLinebreaks', 'ignore-nitpick', 'ignore-possible-error', 'ignore-uncommon', 'txt'];
             function saveOptions() {
                 optionInputsIds.forEach((id) => {
                     let el = $one('#' + id);
@@ -313,11 +316,11 @@
         <h2 id="subtitle">o alasa e pakala! <small><a href="about.html">[About]</a></small></h2>
         <p id="options">
             <label><input id="useLinebreaks" type="checkbox" onclick="reloadWithOptions()"> Line breaks form new sentences</label><br>
-            <label><input id="ignore-warning" type="checkbox" onclick="reloadWithOptions()"> Don't show
-                <span style="background-color: var(--warning-desat); border-bottom: 2px solid var(--warning);">Warnings</span>
+            <label><input id="ignore-nitpick" type="checkbox" onclick="reloadWithOptions()"> Don't show
+                <span style="background-color: var(--nitpick-desat); border-bottom: 2px solid var(--nitpick);">Nitpicks</span>
             </label><br>
-            <label><input id="ignore-suspicious" type="checkbox" onclick="reloadWithOptions()"> Don't show
-                <span style="background-color: var(--suspicious-desat); border-bottom: 2px solid var(--suspicious);">Suspicious passages</span>
+            <label><input id="ignore-possible-error" type="checkbox" onclick="reloadWithOptions()"> Don't show
+                <span style="background-color: var(--possible-error-desat); border-bottom: 2px solid var(--possible-error);">Possible errors</span>
             </label><br>
             <label><input id="ignore-uncommon" type="checkbox" onclick="reloadWithOptions()"> Don't show <span style="background-color: var(--uncommon-desat); border-bottom: 2px solid var(--uncommon);">non-pu/ku words</span>
             </label>
