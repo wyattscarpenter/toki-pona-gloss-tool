@@ -183,6 +183,40 @@ let tests = {
         'jan o lukin sama pipi': 1,
         'lukin sama la mi ken lukin e ijo ike kin': 0,
     },
+    modifyingPreverb: {
+        'mi wile mute moku': 1,
+        'mi ken mute moku': 1,
+        'mi kama mute moku': 1,
+
+        'mi wile mute mute la ijo li pona': 0,
+        'mi wile mute e ni': 0,
+        'mi ken lili lili': 0,
+        'mi wile mute ala': 0,
+        'mi wile mute kin': 0,
+        'mi wile mute taso': 0,
+        'mi wile mute a a a': 0,
+        'mi ken lili lili a a a': 0,
+
+        'mi sona lili pali': 1,
+        'mi awen lili lape': 1,
+        'mi lukin lili moku': 1,
+        'mi alasa lili pali': 1,
+        'mi open mute moku': 1,
+        'mi pini lili moku': 1,
+
+        'mi jan lili pona': 0,
+        'ni li palisa lili kiwen': 0,
+        'ni li ike mute mute': 0,
+
+        'ona li wile mute tawa': 1,
+        'ona li kama lili lon ni': 0,
+        'ona li wile mute kepeken wile ale ona': 0,
+        'ona li wile mute tawa e ni': 1,
+        'jan li wile mute kepeken e ilo wawa': 1,
+
+        'jan li wile mute moku tawa ni: moku li pona': 1,
+        'moku la, jan li wile mute tawa ni: moku li pona': 0,
+    },
     suspiciousEn: {
         'mi en sina li lon': 0,
         'mi en jan pona mi li moku': 0,
@@ -404,7 +438,7 @@ sina wile kepeken ilo mi? pona a!
 
 sina wile toki tawa mi lon Siko lon ma pona la, sina sina ken mute mute. ilo Siko la, mi Nikola.
 jan ale li li ken toki tawa mi. jan li o toki tawa mi a! toki e mi li pona tawa mi.
-sina wile toki ala wile toki tawa mi?
+sina wile toki ala wile toki tawa mi? jan li wile mute toki tawa mi la jan li ken.
 
 tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
 e ilo pona mi pi nasin pona la, o kepeken ona lon tenpo pi wile sina a!

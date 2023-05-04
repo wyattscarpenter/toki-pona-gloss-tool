@@ -377,6 +377,54 @@ function build_rules(wordList) {
             'suspicious',
             'https://www.reddit.com/r/tokipona/comments/tzkbfw/comment/i41fpoe/'
         ),
+        modifyingPreverb: new Err(
+            [
+                /\b(li|o|mi|sina)\s+(wile|sona|awen|kama|ken|lukin|open|pini|alasa)\s+(mute|lili)\s+([a-z]+)\b(\s+[a-z]+\b)?/,
+                function(m, behind) {
+
+                    if(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind))
+                        return false;
+
+                    let lastModifier = m[m.length-2];
+
+                    if(!lastModifier.match(matchesKnownWord))
+                        return false;
+
+                    let allowedThirdWord = PARTICLES.split('|')
+                                                    .concat(['mute', 'lili']) // when insisting "mute mute"
+                                                    .concat(['ala', 'kin', 'a', 'taso']);
+
+                    /*
+                       Preposition words can be used as verbs, or could just be
+                       prepositions following the verb
+
+                       Nothing after the preposition
+                           mi wile mute tawa. => wrong
+                       Particle after the preposition
+                           mi wile mute tawa e ni => wrong
+                           mi wile mute tawa li wile e ni => wrong
+                           mi wile mute tawa pi ike mute => wrong
+                           sina wile mute tawa anu wile lili tawa  => wrong
+                       Content word after the preposition
+                           mi wile mute kepeken wile mi => possibly ok
+                    */
+                    let possibleLookahead = m[m.length-1];
+                    if(possibleLookahead)
+                        possibleLookahead = possibleLookahead.replace(/^\s+/, '');
+
+                    if([undefined].concat(PARTICLES.split('|')).indexOf(possibleLookahead) === -1)
+                        allowedThirdWord = allowedThirdWord.concat(PREPOSITIONS.split('|'));
+
+                    return allowedThirdWord.indexOf(lastModifier) === -1;
+                }
+            ],
+            'It looks like you are trying to modify a preverb ("$2 <em>$3</em> $4").\n\nExcept for negation with <em>ala</em>, adding a modifier to a preverb is not a common thing to do, and can be misleading.',
+            'warning',
+            'https://github.com/kilipan/nasin-toki#negation-of-preverbs',
+        ),
+        /*
+           I would also say "sama lili X" and "sama mute X" are suspicious when sama is a preposition
+        */
         suspiciousEn: new Err(
             new RegExp('(' + /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?)' + PARTIAL_SENTENCE_BEGIN),
             '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em>, multiple <em>e</em> or multiple prepositions instead.',
