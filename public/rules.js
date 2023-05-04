@@ -428,7 +428,7 @@ function build_rules(wordList) {
         suspiciousEn: new Err(
             new RegExp('(' + /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?)' + PARTIAL_SENTENCE_BEGIN),
             '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em>, multiple <em>e</em> or multiple prepositions instead.',
-            'possible-error',
+            'error',
             'https://github.com/kilipan/nasin-toki#the-particle-en'
         ),
         suspiciousKepeken: new Err(
