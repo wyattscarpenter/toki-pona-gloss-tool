@@ -9,9 +9,14 @@ function parseLipuLinku(data) {
 }
 
 function build_rules(wordList) {
+
+    function in_array(value, array) {
+        return array.indexOf(value) !== -1;
+    }
+
     let commonWords = wordList
         .filter((pair) => {
-            return ['common', 'core', 'widespread'].indexOf(pair[1]) != -1;
+            return in_array(pair[1], ['common', 'core', 'widespread']);
         })
         .map((pair) => {
             return pair[0] == 'n'
@@ -20,7 +25,7 @@ function build_rules(wordList) {
         });
     let uncommonWords = wordList
         .filter((pair) => {
-            return ['common', 'core', 'widespread'].indexOf(pair[1]) == -1;
+            return !in_array(pair[1], ['common', 'core', 'widespread']);
         })
         .map((pair) => pair[0]);
 
@@ -193,7 +198,7 @@ function build_rules(wordList) {
                            }).join('|') + ')\\b'),
                 function(m, b) {
                     return startOfFullSentence(m, b) &&
-                           jokeWordsThatStartWithACapitalLetter.indexOf(m[m.length-1]) === -1;
+                           !in_array(m[m.length-1], jokeWordsThatStartWithACapitalLetter);
                 },
             ],
             'Sentences should not start with a capital letter.',
@@ -276,7 +281,7 @@ function build_rules(wordList) {
                 new RegExp('\\b(' + PARTICLES + ')\\s+(' + PARTICLES + ')\\b'),
                 function(m, behind) {
                     return !(m[2] == 'la' && m[3] == 'o') &&
-                           !(m[2] == 'anu' && ['li', 'e', 'o'].indexOf(m[3]) != -1);
+                           !(m[2] == 'anu' && in_array(m[3], ['li', 'e', 'o']));
                 }
             ],
             "Those two particles should not follow each other.",
@@ -445,7 +450,7 @@ function build_rules(wordList) {
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
 
-                    if(jokeWordsThatStartWithACapitalLetter.indexOf(m[10]) !== -1)
+                    if(in_array(m[10], jokeWordsThatStartWithACapitalLetter))
                         return false;
 
                     // Avoid matching uselessly capitalized toki pona words at the
