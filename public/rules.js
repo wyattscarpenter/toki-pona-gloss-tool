@@ -384,20 +384,40 @@ function build_rules(wordList) {
         ),
         modifyingPreverb: new Err(
             [
-                /\b(li|o|mi|sina)\s+(wile|sona|awen|kama|ken|lukin|open|pini|alasa)\s+(mute|lili)\s+([a-z]+)\b(\s+[a-z]+\b)?/,
+                /\b(li|o|mi|sina)\s+(wile|sona|awen|kama|ken|lukin|open|pini|alasa)\s+(mute|lili|taso)\s+([a-z]+)\b(\s+[a-z]+\b)?/,
                 function(m, behind) {
 
                     if(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind))
                         return false;
 
+                    let preverbModifier = m[m.length-3];
                     let lastModifier = m[m.length-2];
 
+                    let possibleLookahead = m[m.length-1];
+                    if(possibleLookahead)
+                        possibleLookahead = possibleLookahead.replace(/^\s+/, '');
+
+                    // Prioritize showing erroneous words over a nitpick
                     if(!lastModifier.match(matchesKnownWord))
                         return false;
 
                     let allowedThirdWord = PARTICLES.split('|')
                                                     .concat(['mute', 'lili']) // when insisting "mute mute"
-                                                    .concat(['ala', 'kin', 'a', 'taso']);
+                                                    .concat(['ala', 'kin', 'a']);
+
+                    if(in_array(preverbModifier, ['mute', 'lili'])) {
+                        allowedThirdWord = allowedThirdWord.concat(['taso']);
+                    }
+
+                    /* 'taso' could be used to join sentences
+                           mi wile taso moku. => wrong
+                           mi wile taso moku e X => wrong
+                           mi wile taso moku li pona tawa mi" => ok
+                           mi ken taso pali suli suli li wile e sijelo wawa" => ok
+                     */
+                    if(preverbModifier == 'taso' && !in_array(possibleLookahead, [undefined, 'e'])) {
+                        return false;
+                    }
 
                     /*
                        Preposition words can be used as verbs, or could just be
@@ -413,14 +433,10 @@ function build_rules(wordList) {
                        Content word after the preposition
                            mi wile mute kepeken wile mi => possibly ok
                     */
-                    let possibleLookahead = m[m.length-1];
-                    if(possibleLookahead)
-                        possibleLookahead = possibleLookahead.replace(/^\s+/, '');
-
-                    if([undefined].concat(PARTICLES.split('|')).indexOf(possibleLookahead) === -1)
+                    if(!in_array(possibleLookahead, [undefined].concat(PARTICLES.split('|'))))
                         allowedThirdWord = allowedThirdWord.concat(PREPOSITIONS.split('|'));
 
-                    return allowedThirdWord.indexOf(lastModifier) === -1;
+                    return !in_array(lastModifier, allowedThirdWord);
                 }
             ],
             'It looks like you are trying to modify a preverb ("$2 <em>$3</em> $4").\n\nExcept for negation with <em>ala</em>, adding a modifier to a preverb is not a common thing to do, and can be misleading.',

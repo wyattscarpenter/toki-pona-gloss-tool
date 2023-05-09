@@ -197,6 +197,8 @@ let tests = {
         'mi wile mute a a a': 0,
         'mi ken lili lili a a a': 0,
 
+        'mi wile mute miku': 0,
+
         'mi sona lili pali': 1,
         'mi awen lili lape': 1,
         'mi lukin lili moku': 1,
@@ -216,6 +218,19 @@ let tests = {
 
         'jan li wile mute moku tawa ni: moku li pona': 1,
         'moku la, jan li wile mute tawa ni: moku li pona': 0,
+
+        'mi wile taso moku': 1,
+        'mi ken taso sitelen': 1,
+        'mi sona taso pali e ni': 1,
+
+        'jan li awen taso pali e ni': 1,
+        'o awen taso lape': 1,
+
+        'mi wile taso lili e ni': 0,
+        'mi wile taso mute e ni': 0,
+
+        'mi sona taso pali li ike tawa mi': 0,
+        'mi sona taso pali suli mute li ike tawa mi': 0,
     },
     suspiciousEn: {
         'mi en sina li lon': 0,
