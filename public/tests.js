@@ -360,6 +360,10 @@ for(let ruleName in tests) {
     for(let sentence in tests[ruleName]) {
         let expectedCount = tests[ruleName][sentence];
 
+        // Just show the first error of a given sentence, not every
+        // possible variation
+        let skip = false;
+
         // Add various contexts before/after the test
         // The context shouldn't change the outcome
         ['',
@@ -368,11 +372,15 @@ for(let ruleName in tests) {
          'tenpo pi mi lili la ',
          'taso, ', 'taso ',
          'ni li pona: ', 'jan o, '].forEach(function(prefix) {
+             if(skip) return;
+
              ['', '.', '!', '...',
               '; mi moku', '. ni la, mi moku a!',
               '. taso, mi wile ala e ni: mi moku.',
               '. ni li pona: ',
               '. jan o, mi wile ala e ni: ale li ike...'].forEach(function(suffix) {
+
+                  if(skip) return;
 
                   // Don't try funky things with question marks
                   if(sentence.slice(-1) == '?' && suffix != '') return;
@@ -393,6 +401,7 @@ for(let ruleName in tests) {
                           ruleName + ':', testSentence,
                           'found:', matches.length,
                           'expected:', expectedCount);
+                      skip = true;
                   }
               });
          });
