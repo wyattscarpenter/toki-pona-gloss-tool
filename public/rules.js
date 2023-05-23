@@ -259,7 +259,7 @@ function build_rules(wordList) {
             'https://github.com/kilipan/nasin-toki#the-particle-li'
         ),
         piOneWord: new Err(
-            new RegExp('(\\bpi\\s+[a-zA-Z]+(\\s+(li|e|en|la|anu|o)\\b|(' + PARTIAL_SENTENCE_BEGIN + ')))'),
+            new RegExp('(\\bpi\\s+[a-zA-Z]+(\\s+(li|e|en|la|o)\\b|(' + PARTIAL_SENTENCE_BEGIN + ')))'),
             '<em>pi</em> does not mean "of". As a general rule, pi should be followed by at least two words.',
             'error',
             'https://github.com/kilipan/nasin-toki#the-particle-pi-1'
