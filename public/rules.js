@@ -447,7 +447,14 @@ function build_rules(wordList) {
            I would also say "sama lili X" and "sama mute X" are suspicious when sama is a preposition
         */
         suspiciousEn: new Err(
-            new RegExp('(' + /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/.source + '.+?)' + PARTIAL_SENTENCE_BEGIN),
+            [
+                /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/,
+                function(m, behind) {
+                    // `li ... la ... en` might be correct
+                    let cleanSentence = normalizePartialSentence(m[0]);
+                    return !cleanSentence.match(/\bla\b/);
+                },
+            ],
             '<em>en</em> is a subject separator, it is not equivalent to the english word <em>and</em>.\n\nFor multiple verbs or multiple objects, use multiple <em>li</em>, multiple <em>e</em> or multiple prepositions instead.',
             'error',
             'https://github.com/kilipan/nasin-toki#the-particle-en'
@@ -480,7 +487,6 @@ function build_rules(wordList) {
                         }
                     }
 
-                    // `li ... la ... en` might be correct
                     return !cleanSentence.match(/\bla\b/);
                 }
             ],
