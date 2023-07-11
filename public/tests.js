@@ -89,7 +89,7 @@ let tests = {
         'mi en jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
 
     },
-    putingEAfterWordDoesntGerundizeIt: {
+    puttingEAfterWordDoesntGerundizeIt: {
         'moku e kala li pona': 1,
         'mama e jan lili li pali suli!': 1,
         'moku e soweli li ike tawa mi :(': 1,
@@ -103,6 +103,8 @@ let tests = {
         'tenpo sama la sina ken ala jo e pan suwi li ken ala moku kin e ona': 0,
 
         'a, mi sona e ijo sin': 0,
+
+        'o moku e pan li wile ala e ni': 0,
     },
     piOneWord: {
         'jan toki pi pona li musi mute': 1,

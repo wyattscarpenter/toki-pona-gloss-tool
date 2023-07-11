@@ -204,7 +204,7 @@ function build_rules(wordList) {
             'Sentences should not start with a capital letter.',
             'error'
         ),
-        putingEAfterWordDoesntGerundizeIt: new Err(
+        puttingEAfterWordDoesntGerundizeIt: new Err(
             [
                 new RegExp(
                     '(' + PARTIAL_SENTENCE_BEGIN + /([^.!?;:]+?)/.source + '\\b(li|o)\\b' + ')'
@@ -215,7 +215,7 @@ function build_rules(wordList) {
                     return !cleanSentence.match(new RegExp(PARTIAL_SENTENCE_BEGIN)) &&
                            (!cleanSentence.match(/^mi\s/i) || cleanSentence.match(/^mi\s+e\b/i)) &&
                            (!cleanSentence.match(/^sina\s/i) || cleanSentence.match(/^sina\s+e\b/i)) &&
-                           !cleanSentence.match(/^o.+o$/) &&
+                           !cleanSentence.match(/^o.+\b(o|li)$/) &&
                            cleanSentence.match(/\be\b/);
                 },
             ],
