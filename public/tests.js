@@ -87,7 +87,18 @@ let tests = {
         'mi en sina en jan ante li pali e ni: ijo pona a': 0,
         'jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
         'mi en jan Wa en jan Pe en jan Se li kama pona tawa mi': 0,
+    },
+    onaMissingLi: {
+        'ona moku': 1,
+        'ona toki ala': 1,
+        'ona ken ala toki': 1,
+        'ona lon ma Kanata': 1,
 
+        // This should be caught by `objectWithoutVerb`
+        'ona ken ala toki e ni': 0,
+
+        'ni li lon: ona!': 0,
+        'ona la, ni li pona moku': 0,
     },
     puttingEAfterWordDoesntGerundizeIt: {
         'moku e kala li pona': 1,
@@ -462,6 +473,8 @@ ni li ilo pi nimi pona. ona li lukin pona.
 nasin pi ilo pi nimi pona li ni: pakala li insa toki sina la, o alasa e ona!
 
 o jan, lipu sina li pakala en ike la, ilo mi li ken pona e ona.
+ni la, ona kama pona!
+
 mi en sina ken lukin e ilo mi. mi wile pona e lipu mi en lipu sina ;)
 sina wile kepeken ilo mi? pona a!
 

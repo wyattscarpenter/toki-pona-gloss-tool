@@ -69,9 +69,11 @@ function build_rules(wordList) {
                        .replace(/[^\w ]/g, ' ')
                        .replace(/\s+/g, ' ')
                        .trim()
-                       .replace(/^(la|taso|a)\s+/g, '') // Required multiple times to strip multiple particles
-                       .replace(/^(la|taso|a)\s+/g, '')
-                       .replace(/^(la|taso|a)\s+/g, '');
+                       .replace(/^(la|taso|a)\s+/, '') // Required multiple times to strip multiple particles
+                       .replace(/^(la|taso|a)\s+/, '')
+                       .replace(/^(la|taso|a)\s+/, '')
+                       .replace(/\bla$/, '')
+                       .trim();
     }
 
     function Err(rule, message, category, more_infos) {
@@ -256,6 +258,23 @@ function build_rules(wordList) {
             "A <em>li</em> is required unless the subject is exactly and only <em>mi</em> or exactly and only <em>sina</em>.\n\n" +
             'e.g. <em>"mi en sina li moku"</em> is prefered over <em>"mi en sina moku"</em>',
             'nitpick',
+            'https://github.com/kilipan/nasin-toki#the-particle-li'
+        ),
+        onaMissingLi: new Err(
+            [
+                new RegExp(
+                    '(' + PARTIAL_SENTENCE_BEGIN + '\\bona\\b(' + /([^.!?;:]+?)/.source + ')(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
+                ),
+                function(m, behind) {
+                    let cleanSentence = normalizePartialSentence(m[0]);
+
+                    return !cleanSentence.match(/\b(li|o)\b/) && cleanSentence != 'ona';
+                },
+            ],
+            function(m) {
+                return 'Make sure <em>$5</em> is a modifier of <em>ona</em>. If you meant it as a verb, use:\n\n<em>ona li $5</em>.';
+            },
+            'possible-error',
             'https://github.com/kilipan/nasin-toki#the-particle-li'
         ),
         piOneWord: new Err(
