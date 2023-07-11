@@ -468,7 +468,7 @@ function build_rules(wordList) {
         unofficialWordWithoutNoun: new Err(
             [
                 new RegExp('(' + PARTIAL_SENTENCE_BEGIN + '([^:;.!?,]+(\\b(' +
-                           'en|e|la|pi|o|anu' + // "x li Proper Noun" is a common construct
+                           'en|e|la|pi|o' + // "x li Proper Noun" is a common construct
                            '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?)(' + PROPER_NOUNS + '[a-z]*)'),
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);

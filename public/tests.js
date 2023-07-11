@@ -304,6 +304,8 @@ let tests = {
         'jan li pona Moku mute la, ona li pona': 0,
         'jan Mali li jan utala. Ona li pilin pona tan ni. Mi pilin pona kin.': 0,
 
+        'jan Napoko li sitelen e lipu Lolita anu Uli?': 0,
+
         // The Pingo-exception
         'mi tawa kepeken Pingo mi': 0,
         'Pingo mi li lon Pingo suli ante': 0,
