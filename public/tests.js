@@ -405,7 +405,7 @@ for(let ruleName in tests) {
          'ni li pona: ', 'jan o, '].forEach(function(prefix) {
              if(skip) return;
 
-             ['', '.', '!', '...',
+             ['', '.', '·', '!', '...', '…',
               '; mi moku', '. ni la, mi moku a!',
               '. taso, mi wile ala e ni: mi moku.',
               '. ni li pona: ',
