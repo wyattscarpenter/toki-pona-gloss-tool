@@ -209,7 +209,7 @@ function build_rules(wordList) {
         puttingEAfterWordDoesntGerundizeIt: new Err(
             [
                 new RegExp(
-                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.!?;:]+?)/.source + '\\b(li|o)\\b' + ')'
+                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.·!?;:]+?)/.source + '\\b(li|o)\\b' + ')'
                 ),
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
@@ -229,7 +229,7 @@ function build_rules(wordList) {
         objectWithoutVerb: new Err(
             [
                 new RegExp(
-                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.!?;:]+?)/.source + '(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
+                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.·!?;:]+?)/.source + '(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
                 ),
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
@@ -246,7 +246,7 @@ function build_rules(wordList) {
         objectWithoutVerbMiSinaEn: new Err(
             [
                 new RegExp(
-                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.!?;:]+?)/.source + '(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
+                    '(' + PARTIAL_SENTENCE_BEGIN + /([^.·!?;:]+?)/.source + '(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
                 ),
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
@@ -263,7 +263,7 @@ function build_rules(wordList) {
         onaMissingLi: new Err(
             [
                 new RegExp(
-                    '(' + PARTIAL_SENTENCE_BEGIN + '\\bona\\b(' + /([^.!?;:]+?)/.source + ')(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
+                    '(' + PARTIAL_SENTENCE_BEGIN + '\\bona\\b(' + /([^.·!?;:]+?)/.source + ')(' + PARTIAL_SENTENCE_BEGIN + ')' + ')'
                 ),
                 function(m, behind) {
                     let cleanSentence = normalizePartialSentence(m[0]);
@@ -467,7 +467,7 @@ function build_rules(wordList) {
         */
         suspiciousEn: new Err(
             [
-                /(\b(li|o|e)\b)\s+[^:;.!?,]+\s+\ben\b/,
+                /(\b(li|o|e)\b)\s+[^:;.·!?,]+\s+\ben\b/,
                 function(m, behind) {
                     // `li ... la ... en` might be correct
                     let cleanSentence = normalizePartialSentence(m[0]);
@@ -486,7 +486,7 @@ function build_rules(wordList) {
         ),
         unofficialWordWithoutNoun: new Err(
             [
-                new RegExp('(' + PARTIAL_SENTENCE_BEGIN + '([^:;.!?,]+(\\b(' +
+                new RegExp('(' + PARTIAL_SENTENCE_BEGIN + '([^:;.·!?,]+(\\b(' +
                            'en|e|la|pi|o' + // "x li Proper Noun" is a common construct
                            '|lon|tawa|tan|kepeken)\\b)\\s+|(mi|sina)\\s+)?)(' + PROPER_NOUNS + '[a-z]*)'),
                 function(m, behind) {
@@ -541,7 +541,7 @@ function build_rules(wordList) {
         ),
         multiplePi: new Err(
             [
-                /\bpi\s+([^:;.!?,]+?)\s+pi\b/,
+                /\bpi\s+([^:;.·!?,]+?)\s+pi\b/,
                 (function() {
                     let regex = new RegExp('\\b(' + PARTICLES + '|' + PREPOSITIONS + ')\\b');
                     return function(m) {
@@ -555,7 +555,7 @@ function build_rules(wordList) {
         ),
         longSentence: new Err(
             [
-                new RegExp('((' + FULL_SENTENCE_BEGIN + ')' + /([^.!?;]+?)/.source + '(' + FULL_SENTENCE_BEGIN + ')' + ')'),
+                new RegExp('((' + FULL_SENTENCE_BEGIN + ')' + /([^.·!?;]+?)/.source + '(' + FULL_SENTENCE_BEGIN + ')' + ')'),
                 function(m, behind) {
                     return m[0].split(/[^a-z]+/).length > 30;
                 },

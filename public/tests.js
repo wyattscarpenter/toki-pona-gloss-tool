@@ -264,6 +264,9 @@ let tests = {
 
         'lipu sina li pakala en ike la, ilo mi li ken pona e ona': 1,
         'lipu mi en lipu sina li pakala en ike la, ilo mi li ken pona e ona': 1,
+
+        'jan li musi li pona lon tenpo ale. suwi en musi li pona.': 0,
+        'jan li musi li pona lon tenpo ale· suwi en musi li pona·': 0,
     },
     suspiciousKepeken: {
         'tenpo pi suno tu tu la ona li musi kepeken meli': 1,
