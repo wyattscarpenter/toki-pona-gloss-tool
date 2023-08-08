@@ -358,6 +358,32 @@ function build_rules(wordList) {
             'possible-error',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_7_Prepositions_2_Other_prepositions'
         ),
+        misplacedPreposition: new Err(
+            [
+                /\b(pana\s+tawa|toki\s+tawa|weka tan)\s+((([a-zA-Z]{2,}|n|a)\s+)+)\be\b/,
+                function(m, behind) {
+                    let foundAPreposition = false;
+                    PARTICLES.split('|').filter((x) => x.length > 1).forEach((word) => {
+                        foundAPreposition = foundAPreposition || m[3].match(new RegExp('\\b' + word + '\\b'));
+                    });
+
+                    return !foundAPreposition;
+                }
+            ],
+            function(match) {
+
+                console.log(match);
+                let verb = match[2].split(/\s+/)[0];
+                let preposition = match[2].split(/\s+/)[1];
+                let preposition_target = match[3];
+
+                return 'The preposition should typically come before the object.\n\nDid you mean:\n<em>' +
+                       verb + ' e [...] ' + preposition + ' ' + preposition_target +
+                       '</em>';
+            },
+            'possible-error',
+            'https://github.com/kilipan/nasin-toki#how-to-use-prepositions'
+        ),
         lukinPona: new Err(
             [
                 /* This rule is a bit tricky, it's a common mistake

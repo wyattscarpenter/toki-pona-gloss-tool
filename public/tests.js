@@ -179,6 +179,16 @@ let tests = {
         'ona li tomo insa': 0,
         'mi lon poka sina': 0,
     },
+    misplacedPreposition: {
+        'mi pana tawa sina e kili': 1,
+        'mi pana tawa sina e kili mi': 1,
+        'mi pana tawa sina ale e kili mute': 1,
+        'mi weka tan supa noka e kili jaki': 1,
+        'jan li toki tawa ona ale e ni: mi lon': 1,
+
+        'jan li toki toki tawa': 0,
+        'jan ike li toki tawa la mi toki e wile sona': 0,
+    },
     lukinPona: {
         'sina lukin pona': 1,
         'mi jo e len pona la mi lukin pona': 1,
@@ -462,6 +472,8 @@ mi pali e ilo mi kepeken jan pona mi. jan pona
 mi li jan Kijom, li pona kin e ilo mi.
 
 Mi pana e ilo ni tawa sina kepeken linluwi :) kulijo a!
+mi pana tawa jan ale e ilo mi.
+
 mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
 ni la, ilo ni li pali e ni: mi sama e jan sona a!
 mi tan e ma Kepeke. jan li tawa e tomo mi la, mi pilin pona.
