@@ -188,6 +188,8 @@ let tests = {
 
         'jan li toki toki tawa': 0,
         'jan ike li toki tawa la mi toki e wile sona': 0,
+        'sina toki tawa jan li pana e ni': 0,
+        'mi toki tawa li toki ala e ijo': 0,
     },
     lukinPona: {
         'sina lukin pona': 1,
