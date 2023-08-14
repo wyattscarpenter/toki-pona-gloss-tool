@@ -336,13 +336,6 @@ let tests = {
         'mi tawa kepeken Pingo mi': 0,
         'Pingo mi li lon Pingo suli ante': 0,
     },
-    sinaO: {
-        'sina o moku pona': 1,
-        'jan sina o moku pona': 0,
-        'mi o moku pona': 0,
-        'sina o!': 0,
-        'sina o, mi moku pona': 0,
-    },
     oBeforeAdress: {
         'o jan Lakuse!': 1,
         'o jan! sina pona!': 1,
@@ -480,7 +473,7 @@ mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
 ni la, ilo ni li pali e ni: mi sama e jan sona a!
 mi tan e ma Kepeke. jan li tawa e tomo mi la, mi pilin pona.
 
-sina o kepeken ilo mi! ni li ilo pi nanpa wan :-)
+o kepeken ilo mi! ni li ilo pi nanpa wan :-)
 jan pi nasin nasa pi toki ike li sona ala e ilo mi.
 mi wile e ni: ilo mi pona e toki pi jan ale.
 ni li pi pona mute a!

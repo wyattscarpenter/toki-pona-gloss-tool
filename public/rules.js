@@ -540,17 +540,6 @@ function build_rules(wordList) {
             'possible-error',
             'https://en.wikibooks.org/wiki/Updated_jan_Pije%27s_lessons/Lesson_9_Gender,_Unofficial_Words,_Commands'
         ),
-        sinaO: new Err(
-            [
-                /sina\s+o\b[^,]/,
-                function(m, behind) {
-                    return startOfPartialSentence(m, behind) && !m[0].match(endsWithFullSentenceBegin);
-                }
-            ],
-            '<em>sina</em> can be omitted with <em>o</em>.',
-            'nitpick',
-            'https://github.com/kilipan/nasin-toki#the-particle-o'
-        ),
         oBeforeAdress: new Err(
             /\bo\s+(meli|mije|tonsi|jan|sina)\b/,
             "<em>o Person</em> is a command/wish to <em>personify</em> something. " +
