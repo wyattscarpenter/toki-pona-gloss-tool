@@ -146,6 +146,18 @@ let tests = {
         'jan li moku anu pi pona': 1,
         'jan anu mi en sina li moki': 0,
     },
+    alaActionVerb: {
+        'mi ala e jan pona sina': 1,
+        'sina ala e jan pona mi': 1,
+        'o ala e jan ike': 1,
+        'jan o ala e jan ike': 1,
+        'moku mi li ala e moku pona': 1,
+
+        'jan li pali pona ala e ijo ike': 0,
+        'jan li pali ala e ijo ike': 0,
+        'jan li pali ala esun e ijo ike': 0,
+        'soweli wawa li moku e jan mi ala e jan sina': 0,
+    },
     weirdActionVerb: {
         'soweli li lon e supa noka': 1,
         'mi lon e supa noka': 1,
@@ -468,6 +480,7 @@ mi li jan Kijom, li pona kin e ilo mi.
 
 Mi pana e ilo ni tawa sina kepeken linluwi :) kulijo a!
 mi pana tawa jan ale e ilo mi.
+mi pali mute e ilo mi: ilo mi li ala e ilo ike.
 
 mi jo e ilo ni la, jan li lon e tomo mi la, mi ken toki pona tawa ona.
 ni la, ilo ni li pali e ni: mi sama e jan sona a!

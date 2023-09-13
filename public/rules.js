@@ -306,6 +306,19 @@ function build_rules(wordList) {
             "Those two particles should not follow each other.",
             'error'
         ),
+        alaActionVerb: new Err(
+            [
+                /\b(mi|sina|li|o)\s+ala\s+e\b/,
+                function(m, behind) {
+                    return !(m[0].match(/^(mi|sina)\s/) && !startOfPartialSentence(m, behind));
+                }
+            ],
+            "<em>ala</em> as an action verb is uncommon.\n\n" +
+            'This would mean <em>"to nullify X"</em> or <em>"to turn X into nothingness"</em>.\n\n' +
+            'If you meant <em>"is not X"</em>, you should probably use <em>"X li Y ala"</em>',
+            'possible-error',
+            "https://github.com/kilipan/nasin-toki#negation"
+        ),
         weirdActionVerb: new Err(
             /\b(mi|sina|li|o)\s+(lon|sama|tan)(\s+(ala|kin))?\s+e\b/,
             function(m) {
