@@ -311,7 +311,7 @@ function build_rules(wordList) {
             function(m) {
                 if(m[3] == 'sama') {
                     return 'Double check: <em>sama</em> as an action verb (<em>sama e X</em>) is uncommon.\n\n' +
-                           'This would mean <em>"to imitate X"</em>, or <em>"to make X the same"</em>. ' +
+                           'This would mean something like <em>"to make X the same"</em>. ' +
                            'The prepositional form <em>"sama X"</em> (<em>"like X"</em>, <em>"same as X"</em>) is much more common.';
                 } else if(m[3] == 'lon') {
                     return 'Double check: <em>lon</em> as an action verb (<em>lon e X</em>) is uncommon.\n\n' +
