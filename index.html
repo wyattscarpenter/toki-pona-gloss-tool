@@ -312,8 +312,8 @@
         </script>
     </head>
     <body id="poki">
-        <img id="logo" src="logo.svg" alt=""><h1>telo misikeke <small>pi toki pona - a toki pona grammar checker</small></h1>
-        <h2 id="subtitle">o alasa e pakala! <small><a href="about.html">[About]</a></small></h2>
+        <img id="logo" src="logo.svg" alt=""><h1>telo misikeke fork: TOKI PONA GLOSS TOOL</a></h1>
+        <h2 id="subtitle">o alasa e pakala! <small><a href="README.md">[About]</a></small></h2>
         <p id="options">
             <label><input id="useLinebreaks" type="checkbox" onclick="reloadWithOptions()"> Line breaks form new sentences</label><br>
             <label><input id="ignore-nitpick" type="checkbox" onclick="reloadWithOptions()"> Don't show
@@ -327,7 +327,7 @@
         </p>
         <h2 id="loading" style="text-align: center; margin: 30px;">Loading...</h2>
         <div id="poki-pi-toki-sina" style="display: none">
-            <textarea id="txt" class="input" spellcheck="false">jan o, toki! :-)
+            <textarea id="txt" class="input" spellcheck="false" oninput="update_txt2(txt.value)">jan o, toki! :-)
 
 mi jan Nikola, li kama
 pana e lukin pi ilo ni tawa sini.
@@ -368,5 +368,141 @@ tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
 e ilo pona mi pi nasin pona la, o kepeken ona lon tenpo pi wile sina a!
 </textarea>
         </div>
+        <!-- <button  onclick="update_txt2(txt.textContent)">Gloss to English</button> -->
+        <pre id="txt2">Edit the text above to produce an English gloss here...</pre>
+<script type="text/javascript">
+function update_txt2(text) {
+  const replacements = [
+    ["a", "ah"],
+    ["kin", "too"],
+    ["akesi", "lizard"],
+    ["ala", "no"],
+    ["alasa", "hunt"],
+    ["ale", "all"],
+    ["ali", "all"],
+    ["anpa", "bowing"],
+    ["ante", "different"],
+    ["anu", "or"],
+    ["awen", "enduring"],
+    ["e", "[obj:]"],
+    ["en", "and"],
+    ["esun", "shop"],
+    ["ijo", "thing"],
+    ["ike", "bad"],
+    ["ilo", "tool"],
+    ["insa", "inside"],
+    ["jaki", "yucky"],
+    ["jan", "human"],
+    ["jelo", "yelo"],
+    ["jo", "have"],
+    ["kala", "fish"],
+    ["kalama", "noise"],
+    ["kama", "come"],
+    ["kasi", "plant"],
+    ["ken", "can"],
+    ["kepeken", "with"],
+    ["kili", "fruit"],
+    ["kiwen", "stone"],
+    ["ko", "clay"],
+    ["kon", "air"],
+    ["kule", "colorful"],
+    ["kulupu", "group"],
+    ["kute", "ear"],
+    ["la", "then"],
+    ["lape", "sleeping"],
+    ["laso", "blue/green"],
+    ["lawa", "head"],
+    ["len", "cloth"],
+    ["lete", "cold"],
+    ["li", "is"],
+    ["lili", "little"],
+    ["linja", "line"],
+    ["lipu", "document"],
+    ["loje", "red"],
+    ["lon", "at"],
+    ["luka", "hand"],
+    ["lukin", "see"],
+    ["oko", "eye"],
+    ["lupa", "hole"],
+    ["ma", "land"],
+    ["mama", "parent"],
+    ["mani", "money"],
+    ["meli", "woman"],
+    ["mi", "me"],
+    ["mije", "man"],
+    ["moku", "eat"],
+    ["moli", "dead"],
+    ["monsi", "back"],
+    ["mu", "moo"],
+    ["mun", "moon"],
+    ["musi", "frivolous"],
+    ["mute", "many"],
+    ["nanpa", "number"],
+    ["nasa", "crazy"],
+    ["nasin", "way"],
+    ["nena", "bump"],
+    ["ni", "this"],
+    ["nimi", "name"],
+    ["noka", "foot"],
+    ["o", "O"],
+    ["olin", "love"],
+    ["ona", "it"],
+    ["open", "open"],
+    ["pakala", "damaged"],
+    ["pali", "do"],
+    ["palisa", "stick"],
+    ["pan", "grain-product"],
+    ["pana", "give"],
+    ["pi", "of"],
+    ["pilin", "feeling"],
+    ["pimeja", "black"],
+    ["pini", "past"],
+    ["pipi", "bug"],
+    ["poka", "side"],
+    ["poki", "container"],
+    ["pona", "good"],
+    ["pu", "interacting with the official Toki Pona book"],
+    ["sama", "same"],
+    ["seli", "fire"],
+    ["selo", "skin"],
+    ["seme", "what"],
+    ["sewi", "holy"],
+    ["sijelo", "body"],
+    ["sike", "round"],
+    ["sin", "new"],
+    ["namako", "embellish"],
+    ["sina", "you"],
+    ["sinpin", "face"],
+    ["sitelen", "image"],
+    ["sona", "know"],
+    ["soweli", "beast"],
+    ["suli", "big"],
+    ["suno", "sun"],
+    ["supa", "horizontal-surface"],
+    ["suwi", "sweet"],
+    ["tan", "from"],
+    ["taso", "but"],
+    ["tawa", "for"],
+    ["telo", "water"],
+    ["tenpo", "time"],
+    ["toki", "speak"],
+    ["tomo", "room"],
+    ["tu", "two"],
+    ["unpa", "sex"],
+    ["uta", "mouth"],
+    ["utala", "battle"],
+    ["walo", "white"],
+    ["wan", "one"],
+    ["waso", "bird"],
+    ["wawa", "strong"],
+    ["weka", "away"],
+    ["wile", "want"]
+  ];
+  for (i of replacements) {
+    text = text.replaceAll(new RegExp('\\b'+i[0]+"\\b", "g"), i[1]);
+  }
+  return txt2.textContent = text;
+}
+</script>
     </body>
 </html>
