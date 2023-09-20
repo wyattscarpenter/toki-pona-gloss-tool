@@ -326,8 +326,10 @@
             </label>
         </p>
         <h2 id="loading" style="text-align: center; margin: 30px;">Loading...</h2>
-        <div id="poki-pi-toki-sina" style="display: none">
-            <textarea id="txt" class="input" spellcheck="false" oninput="update_txt2(txt.value)">jan o, toki! :-)
+        <div style="display: flex; width: 100%">
+        <div id="poki-pi-toki-sina" style="width: 50%;">
+            <textarea id="txt" class="input" spellcheck="false" oninput="update_txt2(txt.value)">
+jan o, toki! :-)
 
 mi jan Nikola, li kama
 pana e lukin pi ilo ni tawa sini.
@@ -369,12 +371,13 @@ e ilo pona mi pi nasin pona la, o kepeken ona lon tenpo pi wile sina a!
 </textarea>
         </div>
         <!-- <button  onclick="update_txt2(txt.textContent)">Gloss to English</button> -->
-        <pre id="txt2">Edit the text above to produce an English gloss here...</pre>
+        <div id="txt2" style="width: 50%; padding-top: 1.4em; line-height: 1.4; font-size: 16px !important; font-family: monospace !important; white-space: pre;">Edit the toki pona text to produce an English gloss here...</div>
+        </div>
 <script type="text/javascript">
 function update_txt2(text) {
   const replacements = [
     ["a", "ah"],
-    ["kin", "too"],
+    ["kin", "indeed"],
     ["akesi", "lizard"],
     ["ala", "no"],
     ["alasa", "hunt"],
@@ -392,7 +395,7 @@ function update_txt2(text) {
     ["ilo", "tool"],
     ["insa", "inside"],
     ["jaki", "yucky"],
-    ["jan", "human"],
+    ["jan", "person"],
     ["jelo", "yelo"],
     ["jo", "have"],
     ["kala", "fish"],
@@ -435,7 +438,7 @@ function update_txt2(text) {
     ["monsi", "back"],
     ["mu", "moo"],
     ["mun", "moon"],
-    ["musi", "frivolous"],
+    ["musi", "fun"],
     ["mute", "many"],
     ["nanpa", "number"],
     ["nasa", "crazy"],
@@ -468,7 +471,7 @@ function update_txt2(text) {
     ["seme", "what"],
     ["sewi", "holy"],
     ["sijelo", "body"],
-    ["sike", "round"],
+    ["sike", "circle"],
     ["sin", "new"],
     ["namako", "embellish"],
     ["sina", "you"],
@@ -478,7 +481,7 @@ function update_txt2(text) {
     ["soweli", "beast"],
     ["suli", "big"],
     ["suno", "sun"],
-    ["supa", "horizontal-surface"],
+    ["supa", "table"],
     ["suwi", "sweet"],
     ["tan", "from"],
     ["taso", "but"],
