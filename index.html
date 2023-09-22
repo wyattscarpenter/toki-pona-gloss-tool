@@ -371,7 +371,7 @@ e ilo pona mi pi nasin pona la, o kepeken ona lon tenpo pi wile sina a!
 </textarea>
         </div>
         <!-- <button  onclick="update_txt2(txt.textContent)">Gloss to English</button> -->
-        <div id="txt2" style="width: 50%; padding-top: 1.4em; line-height: 1.4; font-size: 16px !important; font-family: monospace !important; white-space: pre;">Edit the toki pona text to produce an English gloss here...</div>
+        <div id="txt2" style="width: 50%; padding-top: 1.4em; line-height: 1.4; font-size: 16px !important; font-family: monospace !important; white-space: pre;"></div>
         </div>
 <script type="text/javascript">
 function update_txt2(text) {
@@ -441,7 +441,7 @@ function update_txt2(text) {
     ["musi", "fun"],
     ["mute", "many"],
     ["nanpa", "number"],
-    ["nasa", "crazy"],
+    ["nasa", "silly"],
     ["nasin", "way"],
     ["nena", "bump"],
     ["ni", "this"],
@@ -506,7 +506,7 @@ function update_txt2(text) {
   }
   return txt2.textContent = text;
 }
-update_txt2();
+update_txt2(document.getElementById("txt").innerHTML);
 </script>
     </body>
 </html>
