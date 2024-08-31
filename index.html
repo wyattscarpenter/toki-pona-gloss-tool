@@ -499,7 +499,7 @@ function update_txt2(text) {
   ];
   for (i of replacements) {
     text = text.replaceAll(new RegExp('\\b'+i[0]+"\\b", "g"), i[1]);
-  }  
+  }
   return txt2.innerText = text;
 }
 </script>
