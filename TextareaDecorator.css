@@ -12,6 +12,7 @@
 	font-size: 16px !important;
 	/* resize algorithm depends on a monospaced font */
 	font-family: monospace !important;
+	white-space: pre-wrap;
 }
 
 .ldt textarea {

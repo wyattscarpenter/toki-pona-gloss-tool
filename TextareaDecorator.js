@@ -26,8 +26,6 @@ function TextareaDecorator( textarea, parser ){
     textarea.className = '';
     // turn off built-in spellchecking in firefox
     textarea.spellcheck = false;
-    // turn off word wrap
-    textarea.wrap = "off";
 
     // coloring algorithm
     var color = function( input, output, parser ){
@@ -56,7 +54,7 @@ function TextareaDecorator( textarea, parser ){
             span.textContent = span.innerText = newTokens[firstDiff].text;
             output.insertBefore( span, insertionPt );
         }
-        textarea.style.width = parent.scrollWidth + 'px';
+        //textarea.style.width = parent.scrollWidth + 'px';
     };
 
     api.input = textarea;
@@ -80,7 +78,7 @@ function TextareaDecorator( textarea, parser ){
                 // store the greatest line length thus far
                 maxlen = maxlen > curlen ? maxlen : curlen;
             }
-            textarea.cols = maxlen + 1;
+            //textarea.cols = maxlen + 1;
             textarea.rows = lines.length;
         } else {
             // clear the display

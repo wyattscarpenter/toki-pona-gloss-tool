@@ -367,8 +367,7 @@ tenpo ale la, sina anu jan pona sina pi toki pona anu jan ante li wile kepeken
 e ilo pona mi pi nasin pona la, o kepeken ona lon tenpo pi wile sina a!
 </textarea>
         </div>
-        <!-- <button  onclick="update_txt2(txt.textContent)">Gloss to English</button> -->
-        <div id="txt2" style="width: 50%; padding-top: 1.4em; line-height: 1.4; font-size: 16px !important; font-family: monospace !important; white-space: pre;">Edit the toki pona text to produce an English gloss here...</div>
+        <div id="txt2" style="width: 50%; padding-top: 1.4em; line-height: 1.4; font-size: 16px !important; font-family: monospace !important;">Edit the toki pona text to produce an English gloss here...</div>
         </div>
 <script type="text/javascript">
 function update_txt2(text) {
@@ -500,8 +499,8 @@ function update_txt2(text) {
   ];
   for (i of replacements) {
     text = text.replaceAll(new RegExp('\\b'+i[0]+"\\b", "g"), i[1]);
-  }
-  return txt2.textContent = text;
+  }  
+  return txt2.innerText = text;
 }
 </script>
     </body>

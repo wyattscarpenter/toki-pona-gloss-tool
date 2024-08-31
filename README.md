@@ -6,8 +6,6 @@ https://wyattscarpenter.github.io/toki-pona-gloss-tool/
 
 This is Toki Pona Gloss Tool, a fork of telo misikeke ( telo misikeke pi toki pona - a toki pona grammar checker ; https://telo-misikeke.gitlab.io/ ; https://gitlab.com/telo-misikeke/telo-misikeke.gitlab.io ) which adds an EXTREMELY literal, 1-to-1 translation of the toki pona you type in to English. This is supposed to be helpful to learners and casual users; save you many trips to the dictionary starting out. Note that something that looks like valid English coming out of the gloss tool doesn't necessarily mean the same thing in toki pona! I briefly considered calling this fork "toki poki" but dismissed this as too cute and not useful enough. All of my alterations to the project I release under the same license as the original—and also the public domain if that matters to anyone and iff I have the power to do that, legally speaking.
 
-Known issue: the text area does not word wrap. I'm not sure I can fix this downstream without a lot of trouble (I tried for like 15 minutes); we'll see if upstream thinks it's a bug (https://gitlab.com/telo-misikeke/telo-misikeke.gitlab.io/-/issues/1)
-
 The readme of the original project follows:
 
 telo misikeke
